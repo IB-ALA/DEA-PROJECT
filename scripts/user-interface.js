@@ -271,31 +271,14 @@ export function showMenu() {
 
 
 export function sendForm() {
-  // const submitBtn = document.getElementById('submit-form-btn');
   const form = document.querySelector('.js-form-grid');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    // let good = true;
-
-    // const nameAlert = document.getElementById('name-warning');
-    // const emailAlert = document.getElementById('email-warning');
-    // const messageAlert = document.getElementById('message-warning');
 
     const senderNameElem = document.getElementById('sender-name-input');
     const senderEmailElem = document.getElementById('sender-email-input');
     const senderMessageElem = document.getElementById('sender-message-input');
-
-    // senderNameElem.addEventListener('click', () => {
-    //   nameAlert.innerText = '';
-    // });
-    // senderEmailElem.addEventListener('click', () => {
-    //   emailAlert.innerText = '';
-    // });
-    // senderMessageElem.addEventListener('click', () => {
-    //   messageAlert.innerText = '';
-    // });
-
 
     let senderName = senderNameElem.value.trim();
     const senderEmail = senderEmailElem.value.trim();
@@ -306,61 +289,47 @@ export function sendForm() {
     senderName = senderName.charAt(0).toUpperCase() + senderName.slice(1);
 
     if (!senderNameElem.parentElement.classList.contains('error') && !senderEmailElem.parentElement.classList.contains('error') && !senderMessageElem.parentElement.classList.contains('error')) {
-      console.log('ok');
-      contacts.push({senderName, senderEmail, senderMessage});
-      form.reset();
-      saveContacts();
-      console.log(contacts);
+      // console.log('ok');
+      const message = `Message from ${senderName, senderEmail}. ${senderMessage}`;
+
+      Email.send({
+        SecureToken: "dd790cba-9554-48fd-894e-7ade1d823fb9",
+        To : "ibaladeveloper@gmail.com",
+        From : "ibaladeveloper@gmail.com",
+        Subject : "DEA.com-Contact",
+        Body : message
+      }).then(
+        message => {
+          if (message === 'OK') {
+            Swal.fire({
+              title: "Done!",
+              text: "Message sent Successfully",
+              icon: "success"
+            });
+            form.reset();
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Couldn't send message. Please try again.",
+              icon: "error"
+            });
+            console.log(message);
+          }
+        }
+      );
+
+      // contacts.push({senderName, senderEmail, senderMessage});
+      // form.reset();
+      // saveContacts();
+      // console.log(contacts);
     }
-
-    /*
-    if (senderName === '') {
-      nameAlert.innerText = 'Please enter your name';
-      good = false;
-    }
-    if (senderEmail === '') {
-      emailAlert.innerText = 'Please enter your email';
-      good = false;
-    } else if (!senderEmail.includes('@')) {
-      emailAlert.innerText = 'Please enter a valid email';
-      good = false;
-    }
-    if (senderMessage === '') {
-      messageAlert.innerText = 'Please type a message';
-      good = false;
-    }*/
-
-    // const formInputs = document.querySelectorAll('.form-input');
-    // console.log(formInputs);
-
-    // for (const inputElem of formInputs) {
-    //   if (inputElem.value === '') {
-    //     inputElem.parentElement.classList.add('error-text-container');
-    //     console.log(inputElem.parentElement);
-    //   }
-    // }    
-
-
-    // console.log(good);
-
-    // if (good) {
-    //   contacts.push({senderName, senderEmail, senderMessage});
-    //   saveContacts();
-    //   senderNameElem.value = '';
-    //   senderEmailElem.value = '';
-    //   senderMessageElem.value = '';
-
-    //   console.log(contacts);
-    // }
   });
 }
 
 
 function checkInputs() {
   const formInputs = document.querySelectorAll('.form-input');
-  // console.log(formInputs);
-
-  for (const inputElem of formInputs) {
+    for (const inputElem of formInputs) {
     if (inputElem.value === '') {
       inputElem.parentElement.classList.add('error');
     }
