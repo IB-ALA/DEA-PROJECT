@@ -1,0 +1,161 @@
+
+
+
+@media (max-width: 1170px) {
+  
+  main {
+    /* border: 4px solid blue; */
+    padding: 70px 5% 30px;
+  }
+
+  /* body {
+    background-color: aqua;
+  } */
+
+  .page-indicator {
+    margin: 20px auto 10px;
+    width: 100%;
+    max-width: 870px;
+  }
+
+  .products-grid {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 880px;
+    /* margin: 0 auto ; */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+@media (max-width: 1014px) {
+  
+  main {
+  /* border: 4px solid blue; */
+    padding: 70px 10% 30px;
+  }
+
+  /* body {
+    background-color: aqua;
+  } */
+
+  .page-indicator {
+    max-width: 750px;
+  }
+
+  .products-grid {
+    max-width: 750px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 835px) {
+  
+  main {
+  /* border: 4px solid blue; */
+    padding: 70px 7% 30px;
+  }
+
+  /* body {
+    background-color: aqua;
+  } */
+
+  .page-indicator {
+    max-width: 550px;
+  }
+
+  .products-grid {
+    max-width: 550px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .newsletter p {
+    margin-bottom: 15px;
+  }
+}
+
+
+@media (max-width: 660px) {
+  /* body {
+    background-color: aqua;
+  }  */
+
+  .newsletter input {
+    min-width: 30%;
+    /* width: fit-content; */
+    
+  
+    /* display: block; */
+    /* width: 100%; */
+    font-size: 1.1rem;
+    /* background-color: hsl(0, 0%, 90%); */
+    border: none;
+    /* border-bottom: 2px solid black; */
+    border-bottom: 1px solid hsl(0, 79%, 65%);
+  }
+
+
+
+  footer .bottom p {
+    width: 100%;
+    border-top: 1px solid hsl(0, 79%, 85%);
+  }
+
+  .cart.show {
+    width: 29rem;
+  }
+}
+
+@media (max-width: 530px) {
+  .products-grid {
+    max-width: 350px;
+    grid-template-columns: 1fr;
+  }
+
+  .page-indicator {
+    max-width: 350px;
+  }
+  .page-indicator h2 {
+    font-size: 1rem;
+    word-spacing: 5px;
+  }
+  .cart-section .cart-icon-container svg {
+    width: 30px;
+    height: 30px;
+  }
+  .cart {
+    top: 49px;
+  }
+
+
+
+  .newsletter p {
+    font-size: small;
+  }
+  .newsletter .form-section svg {
+    /* border: 2px solid red; */
+    width: 26px;
+    height: 26px;
+  }
+
+  .cart.show {
+    max-width: 310px;
+    width: 850%;
+  }
+
+  .item-details .top p {
+    border-right: 2px solid hsl(0, 0%, 90%); 
+    font-size: .9rem;
+  }
+  .item-details .item-total {
+    font-size: 1.1rem;
+  }
+
+  .clear-cart-btn {
+    padding: 13px 9px;
+  }
+  .check-out-btn {
+    padding: 13px 15px;
+  }
+}

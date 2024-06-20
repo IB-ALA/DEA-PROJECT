@@ -1,0 +1,13 @@
+header {
+  border-bottom: 2px solid hsl(0, 0%, 93%);
+  background-color: white;
+}
+header nav ul li a {
+  color: hsl(0, 0%, 10%);
+  transition: 0.2s;
+}
+
+.shadow {
+  box-shadow: 1px 0 10px hsla(0, 0%, 85%, 0.9);
+  border-bottom: none;
+}

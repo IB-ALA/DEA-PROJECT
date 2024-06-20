@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 72px;
+}
+
+main {
+  border: 2px solid #ff0000;
+  /* height: 50px; */
+  width: 100%;
+  max-width: 1270px;
+  margin: 0 auto;
+}
