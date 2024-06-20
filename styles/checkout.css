@@ -5,6 +5,9 @@
 body {
   padding-top: 72px;
 }
+p {
+  width: fit-content;
+}
 
 main {
   border: 2px solid #ff0000;
@@ -12,4 +15,199 @@ main {
   width: 100%;
   max-width: 1270px;
   margin: 0 auto;
+}
+
+h1, 
+h1 span {
+  border: 2px solid #ff0000;
+  margin: 10px 0;
+  width: fit-content;
+  text-transform: uppercase;
+  font-size: 20px;
+  /* word-spacing: 5px; */
+  letter-spacing: 1px;
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-family: cursive;
+  /* color: hsl(0, 79%, 85%); */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  padding: 0;
+}
+
+h1 span {
+  /* color: hsl(0, 79%, 85%); */
+  font-size: 18px;
+}
+
+h2 {
+  /* text-align: center; */
+  /* padding-left: 5%; */
+  font-size: 1rem;
+  word-spacing: 10px;
+  letter-spacing: 2px;
+  text-wrap: nowrap;
+  text-transform: uppercase;
+  border: 2px solid red;
+  margin-bottom: 15px;
+}
+
+.checkout-grid {
+  border: 2px solid red;
+  display: grid;
+  column-gap: 100px;
+  grid-template-columns: 2fr 1.2fr;
+  padding: 10px 0;
+}
+
+.form-section {
+  border: 2px solid green;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.delivery-details-container {
+  border: 2px solid blue;
+  margin-bottom: 40px; 
+}
+
+.delivery-details-container form {
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form .row {
+  width: 100%;
+  /* border: 2px solid green; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+form .col {
+  position: relative;
+  margin: 0 0 15px;
+}
+
+.delivery-details-container form input {
+  width: 300px;
+  padding: 22px 10px 8px;
+  /* margin: 0 0 15px; */
+  outline: none;
+  border: 2px solid hsl(0, 0%, 70%);
+  border-radius: 6px;
+  font-size: 20px;
+
+}
+.delivery-details-container form input:focus + label,
+.delivery-details-container form input:not(:placeholder-shown) + label {
+  top: 20%;
+  left: 10px;
+  font-size: 13px;
+  color: hsl(0, 0%, 80%);
+}
+
+form .row .col label {
+  position: absolute;
+  color: hsl(0, 0%, 55%);
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  transition: all 0.1s ease-in-out;
+  pointer-events: none;
+  text-transform: capitalize;
+}
+
+.col label.required::after {
+  content: ' *';
+  color: hsl(0, 100%, 45%);
+}
+
+.delivery-details-container form select {
+  width: 300px;
+  padding: 15px 10px;
+  /* margin: 0 0 15px; */
+  outline: none;
+  border: 2px solid hsl(0, 0%, 75%);
+  border-radius: 6px;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+.delivery-details-container form select option {
+  text-transform: capitalize;
+}
+
+
+.payment-details-container {
+  border: 2px solid blue;
+}
+
+
+.payment-method {
+  border: #ff0000 2px solid;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  padding: 13px 3px;
+}
+
+.payment-method input {
+  display: none;
+}
+
+.payment-method-label {
+  width: 80px;
+  height: 80px;
+  padding: 8px;
+  border: hsl(0, 0%, 70%) 1px solid;
+  border-radius: 8px;
+  margin-right: 12px;
+  cursor: pointer;
+  position: relative;
+}
+.payment-method input:checked + .payment-method-label {
+  border-color: hsl(240, 100%, 50%);
+  box-shadow: 0 0 7px hsl(240, 100%, 50%);
+}
+.payment-method input:checked + .payment-method-label::before {
+  content: "✓";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  padding-bottom: 1px;
+  color: white;
+  font-weight: bolder;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: hsl(240, 100%, 50%);
+  /* background-image: url();
+  background-size: 13px;
+  background-position: center;
+  background-repeat: no-repeat; */
+}
+
+.payment-method-label > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+
+
+
+
+
+
+section {
+  border: 2px solid green;
 }

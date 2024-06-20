@@ -56,36 +56,36 @@
           <h2>delivery details</h2>
 
           <form action="#">
-            <div class="ro1">
-              <div class="col1">
-                <input type="text" placeholder="first name">
-                <p class="alert">enter your first name</p>
+            <div class="row">
+              <div class="col">
+                <input placeholder="" type="text" id="first-name">
+                <label for="first-name" class="alert required">first name</label>
               </div>
-              <div class="col2">
-                <input type="text" placeholder="last name">
-                <p class="alert">enter your last name</p>
-              </div>
-            </div>
-
-            <div class="row2">
-              <div class="col1">
-                <input type="number" placeholder="phone number">
-                <p class="alert">enter your phone number</p>
-              </div>
-              <div class="col2">
-                <input type="email" placeholder="email">
-                <p class="alert">enter your email</p>
+              <div class="col">
+                <input placeholder="" type="text" id="last-name">
+                <label for="last-name" class="alert required">last name</label>
               </div>
             </div>
 
-            <div class="row3">
-              <div class="col1">
+            <div class="row">
+              <div class="col">
+                <input placeholder="" type="tel" id="phone-number">
+                <label for="phone-number" class="alert required">phone number</label>
+              </div>
+              <div class="col">
+                <input placeholder="" type="email" id="email">
+                <label for="email" class="alert required">email</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
                 <select name="country" id="">
                   <option value="ghana" selected>ghana</option>
                 </select>
-                <p class="alert">select your country</p>
+                <!-- <label for="" class="alert required">select your country</label> -->
               </div>
-              <div class="col2">
+              <div class="col">
                 <select name="region" id="">
                   <option value="greater accra region" selected>greater accra region</option>
                   <option value="ashanti region">ashanti region</option>
@@ -93,18 +93,18 @@
                   <option value="eastern region">eastern region</option>
                   <option value="western region">western region</option>
                 </select>
-                <p class="alert">select your region</p>
+                <!-- <label for="" class="alert required">select your region</label> -->
               </div>
             </div>
 
-            <div class="row4">
-              <div class="col1">
-                <input type="text" placeholder="address/landmark">
-                <p class="alert">enter your address or closest landmark</p>
+            <div class="row">
+              <div class="col">
+                <input placeholder="" type="text" id="address/landmark">
+                <label for="address/landmark" class="alert required">address/closest landmark</label>
               </div>
-              <div class="col2">
-                <input type="text" placeholder="ZIP">
-                <p class="alert">enter your ZIP code</p>
+              <div class="col">
+                <input placeholder="" type="text" id="ZIP">
+                <label for="ZIP" class="alert">ZIP code</label>
               </div>
             </div>
           </form>
@@ -114,19 +114,29 @@
           <h2>payment details</h2>
 
           <div class="payment-method">
-            <input type="radio" name="payment-method" id="momo">
-            <label for="momo" class="">
-              <img src="" alt="mobile money">
+            <input type="radio" checked name="payment-method" id="momo">
+            <label for="momo" class="payment-method-label">
+              <img src="images/icons/momo.jpg" alt="mobile money">
             </label>
 
             <input type="radio" name="payment-method" id="visa">
-            <label for="visa" class="">
-              <img src="" alt="visa">
+            <label for="visa" class="payment-method-label">
+              <img src="images/icons/visa.png" alt="visa">
+            </label>
+
+            <input type="radio" name="payment-method" id="master-card">
+            <label for="master-card" class="payment-method-label">
+              <img src="images/icons/mastercard.png" alt="master-card">
+            </label>
+
+            <input type="radio" name="payment-method" id="paypal">
+            <label for="paypal" class="payment-method-label">
+              <img src="images/icons/paypal.png" alt="paypal">
             </label>
 
             <input type="radio" name="payment-method" id="stripe">
-            <label for="stripe" class="">
-              <img src="" alt="stripe">
+            <label for="stripe" class="payment-method-label">
+              <img src="images/icons/stripe.png" alt="stripe">
             </label>
           </div>
 
