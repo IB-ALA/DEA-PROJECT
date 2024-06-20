@@ -271,7 +271,7 @@ export function showMenu() {
 
 
 export function sendForm() {
-  const submitBtn = document.getElementById('submit-form-btn');
+  // const submitBtn = document.getElementById('submit-form-btn');
   const form = document.querySelector('.js-form-grid');
 
   form.addEventListener('submit', (e) => {
@@ -354,6 +354,7 @@ export function sendForm() {
     // }
   });
 }
+
 
 function checkInputs() {
   const formInputs = document.querySelectorAll('.form-input');

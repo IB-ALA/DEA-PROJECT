@@ -1,6 +1,6 @@
 import { changeUiColor, startScrolls, showCart, showCartScrollBar, showMenu, sendForm, giveShopStausOpacityEffects } from './user-interface.js';
 import { cart } from './cart.js';
-// import { checkShopStatus } from './days.js';
+import { checkShopStatus } from './days.js';
 
 
 const cartQuantityElem = document.getElementById('cart-icon-quantity');
@@ -17,10 +17,10 @@ startScrolls();
 showCart();
 showCartScrollBar();
 sendForm();
-// renderShopStatus();
+renderShopStatus();
 giveShopStausOpacityEffects();
 
-// setInterval(renderShopStatus, 60000);
+setInterval(renderShopStatus, 60000);
 
 window.addEventListener('scroll', changeUiColor);
 
@@ -38,14 +38,14 @@ clearCartBtn.addEventListener('click', () => {
 function renderShopStatus() {
   let shopStatus;
   if (checkShopStatus()) {
-    shopStatus = 'store opened';
+    shopStatus = 'store: opened';
     if (shopStatusContainer.classList.contains('closed')) {
       shopStatusContainer.classList.replace('closed', 'opened');
     } else {
       shopStatusContainer.classList.add('opened');
     }
   } else {
-    shopStatus = 'store closed';
+    shopStatus = 'store: closed';
     if (shopStatusContainer.classList.contains('opened')) {
       shopStatusContainer.classList.replace('opened', 'closed');
     } else {
