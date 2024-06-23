@@ -12,6 +12,12 @@ html {
 
 button {
   cursor: pointer;
+  transition: all .15s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
 }
 
 .header-background-color {
@@ -261,7 +267,6 @@ footer .bottom p span {
   background-color: white;
   top: 5px;
   padding: 0;
-  cursor: pointer;
 }
 .cart-header button svg {
   width: 1.6rem;
@@ -306,14 +311,12 @@ footer .bottom p span {
 }
 .cart-footer button {
   /* text-transform: capitalize; */
-  border: none;
   border-radius: 5px;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   color: hsl(0, 0%, 98%);
   transition: background-color 0.15s;
-  cursor: pointer;
 }
 .clear-cart-btn {
   background-color: hsl(0, 110%, 35%);
@@ -465,11 +468,7 @@ footer .bottom p span {
   height: 20px; */
   padding: 0;
   /* margin: -3px 0 0 0; */
-  border: none;
   background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-left: 2px solid hsl(0, 0%, 90%); 
 }
 .item-details .top button svg{
@@ -514,7 +513,6 @@ footer .bottom p span {
   height: 25px;
   padding: 0;
   margin: 0;
-  border: none;
   background-color: transparent;
 }
 .quantity-editing-container svg {
@@ -551,10 +549,6 @@ footer .bottom p span {
   border-radius: 50%;
   width: 23px;
   height: 23px;
-  display: flex;
-  /* text-align: center; */
-  justify-content: center;
-  align-items: center;
   transition: color 0.15s ease-in-out;
 }
 .checkout-side .cart-header button:nth-child(1):hover {

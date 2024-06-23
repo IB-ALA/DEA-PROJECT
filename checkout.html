@@ -45,10 +45,7 @@
   </header>
 
   <main>
-    <h1>
-      checkout 
-      <span>(3 items)</span>
-    </h1>
+    <h1>checkout</h1>
 
     <article class="checkout-grid">
       <section class="form-section">
@@ -112,6 +109,7 @@
 
         <div class="payment-details-container">
           <h2>payment details</h2>
+          <h3>Select Payment method</h3>
 
           <div class="payment-method">
             <input type="radio" checked name="payment-method" id="momo">
@@ -145,73 +143,95 @@
           </div>
         </div>
 
-        <button>Proceed to pay</button>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+            <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"></path>
+          </svg>
+          Proceed to pay
+        </button>
       </section>
 
 
       <section class="order-summary-section">
         <div class="order-summary-head">
-          <h2>order summary</h2>
-          <button>back</button>
+          <div class="top-side">
+            <h2>order summary</h2>
+
+            <a href="products.html">
+              <button>
+                <span>←</span>
+                back
+              </button>
+            </a>
+          </div>
+          <div class="bottom-side">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+              <path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"></path>
+            </svg>
+            <p>3 items</p>
+          </div>
+
         </div>
 
-        <div class="order-summary-container">
-          <div class="order-details">
-            <div class="cart-item-grid">
-              <div class="item-image">
-                <img src="" alt="">
-              </div>
-
-              <div class="item-details">
-                <div class="left-side">
-                  <p class="item-name">Umbrella</p> <br>
-                  <p class="item-price">₵25</p>
+        <div class="order-summary-body">
+          <div class="order-summary-container">
+            <div class="order-details-container">
+              <div class="cart-item-grid">
+                <div class="item-image">
+                  <img src="images/products/umbrella.jpg" alt="Umbrella">
                 </div>
-
-                <div class="right-side">
-                  <p class="item-quantity">X2</p>
+  
+                <div class="order-item-details">
+                  <div class="left-side">
+                    <p class="item-name">Umbrella</p> <br>
+                    <p class="item-price">₵25.00</p>
+                  </div>
+  
+                  <div class="right-side">
+                    <p class="item-quantity">X2</p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="cart-item-grid">
+                <div class="item-image">
+                  <img src="images/products/black-2-slot-toaster.jpg" alt="">
+                </div>
+  
+                <div class="order-item-details">
+                  <div class="left-side">
+                    <p class="item-name">Cloth softener</p> <br>
+                    <p class="item-price">₵25.00</p>
+                  </div>
+  
+                  <div class="right-side">
+                    <p class="item-quantity">X1</p>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="cart-item-grid">
-              <div class="item-image">
-                <img src="" alt="">
+  
+            <div class="order-billings-container">
+              <div class="cart-total-container">
+                <p>order total:</p>
+                <p>₵75.00</p>
               </div>
-
-              <div class="item-details">
-                <div class="left-side">
-                  <p class="item-name">Cloth softener</p> <br>
-                  <p class="item-price">₵25</p>
-                </div>
-
-                <div class="right-side">
-                  <p class="item-quantity">X1</p>
-                </div>
+              <div class="discount-amount-container">
+                <p>discount <span>0%</span>:</p>
+                <p>-₵0.00</p>
+              </div>
+              <div class="additonal-cost-container">
+                <p>additional cost:</p>
+                <p>₵0.00</p>
               </div>
             </div>
-          </div>
-
-          <div class="order-billings">
-            <div class="cart-total-container">
-              <p>order total</p>
+  
+            <div class="divider"></div>
+  
+            <div class="order-total">
+              <h3>total:</h3>
               <p>₵75.00</p>
             </div>
-            <div class="discount-amount-container">
-              <p>discount</p>
-              <p>-₵0.00</p>
-            </div>
-            <div class="additonal-cost-container">
-              <p>additional cost</p>
-              <p>₵0.00</p>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="order-total">
-            <h3>total</h3>
-            <p>₵75.00</p>
           </div>
         </div>
       </section>
