@@ -1,9 +1,13 @@
 * {
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   padding-top: 72px;
+  background-color: hsla(0, 0%, 97%, 0.1);
 }
 p {
   width: fit-content;
@@ -27,33 +31,32 @@ form .row,
 }
 
 main {
-  border: 2px solid #ff0000;
+  /* border: 2px solid #ff0000; */
   /* height: 50px; */
   width: 100%;
   max-width: 1270px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
+  /* background-color: hsla(0, 0%, 100%); */
 }
 
 h1 {
   /* border: 2px solid #ff0000; */
-  margin: 10px 0;
+  margin: 25px 0;
   width: fit-content;
   text-transform: uppercase;
-  font-size: 25px;
+  font-size: 28px;
   /* word-spacing: 5px; */
   letter-spacing: 1px;
   /* font-family: 'Courier New', Courier, monospace; */
   font-family: cursive;
+  /* color: hsl(220, 100%, 47%); */
+  /* color: hsl(263, 68%, 43%); */
   /* color: hsl(0, 79%, 85%); */
+  color: hsl(0, 0%, 40%);
   /* display: flex;
   justify-content: center;
   align-items: center; */
   padding: 0;
-}
-
-h1 span {
-  /* color: hsl(0, 79%, 85%); */
-  font-size: 18px;
 }
 
 h2 {
@@ -66,24 +69,29 @@ h2 {
   text-transform: uppercase;
   /* border: 2px solid red; */
   margin-bottom: 15px;
+  /* color: hsl(220, 100%, 47%); */
+  /* color: hsl(263, 68%, 43%); */
 }
 
 .checkout-grid {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: grid;
   column-gap: 100px;
   grid-template-columns: 2fr 1.2fr;
-  padding: 10px 0;
+  /* padding: 10px 0; */
+  /* background-color: hsla(0, 0%, 95%, 0.267); */
 }
 
 .form-section {
-  border: 2px solid green;
+  border: 2px solid hsl(0, 0%, 80%);
+  /* border: 2px solid hsl(220, 100%, 47%); */
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 5px;
+  /* background-color: hsla(0, 0%, 95%, 0.267); */
 }
 
 .delivery-details-container {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   margin-bottom: 40px; 
 }
 
@@ -110,8 +118,9 @@ form .col {
   outline: none;
   border: 2px solid hsl(0, 0%, 70%);
   border-radius: 6px;
-  font-size: 20px;
-
+  font-size: 19px;
+  color: hsl(0, 0%, 30%);
+  background-color: transparent;
 }
 .delivery-details-container form input:focus + label,
 .delivery-details-container form input:not(:placeholder-shown) + label {
@@ -144,18 +153,21 @@ form .row .col label {
   outline: none;
   border: 2px solid hsl(0, 0%, 75%);
   border-radius: 6px;
-  font-size: 18px;
+  font-size: 19px;
   text-transform: capitalize;
+  background-color: transparent;
+  color: hsl(0, 0%, 30%);
 }
 
 .delivery-details-container form select option {
   text-transform: capitalize;
+  color: hsl(0, 0%, 30%);
 }
 
 
-.payment-details-container {
+/* .payment-details-container {
   border: 2px solid blue;
-}
+} */
 
 .payment-details-container h3 {
   /* border: 2px solid blue; */
@@ -297,6 +309,7 @@ form .row .col label {
   word-spacing: 3px;
   font-weight: normal;
   margin: 0;
+  color: white;
 } 
 .order-summary-head .top-side a {
   text-decoration: none;
@@ -363,14 +376,12 @@ form .row .col label {
 
 .order-summary-body::before {
   content: '';
-  /* z-index: 2; */
   position: absolute;
   /* top: 24px; */
   left: 50%;
   transform: translateX(-50%);
   height: 16px;
   width: calc(100% + 20px);
-  /* border: #ff0000 2px solid; */
   border-radius: 6px;
   background-color: hsla(240, 100%, 30%, 0.4);
 }
@@ -383,9 +394,7 @@ form .row .col label {
   overflow: hidden;
   border-radius: 0 0 12px 12px;
   box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2), inset 0 5px 5px rgba(0, 0, 0, 0.2);
-  /* z-index: 5 !important; */
   position: relative;
-  /* transition: ease-in-out 2s; */
   animation: release 1s linear;
 }
 @keyframes release {
@@ -400,8 +409,24 @@ form .row .col label {
 .order-details-container {
   /* border: 2px solid red; */
   border-bottom: 2px solid hsl(0, 0%, 94%);
+  max-height: 190px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
   padding-bottom: 10px;
   margin-bottom: 12px;
+}
+.order-details-container::-webkit-scrollbar {
+  background-color: white;
+  width: 0.25rem;
+  border-radius: 0.2rem;
+}
+.order-details-container::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 0.2rem;
+}
+.order-details-container:hover::-webkit-scrollbar-thumb,
+.order-details-container.show-scroll-bar::-webkit-scrollbar-thumb {
+  background-color: hsl(0, 0%, 93%);
 }
 
 .cart-item-grid {
@@ -428,6 +453,9 @@ form .row .col label {
 
 .order-item-details .left-side {
   /* border: 2px solid green; */
+  width: 100%;
+  height: 100%;
+  padding: 6px 0 0;
   display: flex;
   flex-direction: column;
   margin-right: 5px;
@@ -436,8 +464,9 @@ form .row .col label {
 } 
 
 .order-item-details .left-side .item-name {
-  padding-right: 10px;
-  color: hsl(0, 0%, 0%);
+  /* padding-right: 10px; */
+  margin-bottom: 15px;
+  color: hsl(0, 0%, 30%);
   font-weight: bold;
   text-transform: uppercase;
   font-size: 13px;
@@ -446,7 +475,7 @@ form .row .col label {
   /* border: 2px solid red; */
   display: -webkit-box;
   -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   overflow: hidden;
 }
 
@@ -567,6 +596,6 @@ form .row .col label {
 
 
 
-section {
+/* section {
   border: 2px solid green;
-}
+} */

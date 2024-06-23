@@ -295,6 +295,19 @@ footer .bottom p span {
 }
 
 
+.track-order-btn {
+  /* margin: 3px auto 10px; */
+  font-size: 16px;
+  text-transform: capitalize;
+  color: hsl(199, 99%, 36%);
+  background-color: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  text-underline-offset: .2rem;
+  font-weight: bold;
+}
+
+
 .cart-footer {
   position: absolute;
   width: 100%;

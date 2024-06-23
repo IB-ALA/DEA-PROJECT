@@ -1,4 +1,5 @@
 import { contacts, saveContacts } from '../scripts/data/data.js';
+import { cart } from './cart.js';
 
 
 export function startScrolls() {
@@ -173,7 +174,9 @@ export function giveProductsCheckoutHeaderShadow() {
 export function showCart() {
   const cartBtn = document.querySelector('.js-cart-btn');
   const cartContainer = document.querySelector('.js-cart');
-  const cartCheckoutBtn = document.querySelector('.js-cart-checkout-btn');
+  const closeCartBtns = cartContainer.querySelectorAll('.js-close-cart');
+  const cartCheckoutBtn = cartContainer.querySelector('.js-cart-checkout-btn');
+  const trackOrderBtn = cartContainer.querySelector('.js-track-order-btn');
 
   cartBtn.addEventListener('click', () => {
     cartContainer.classList.toggle('show');
@@ -182,7 +185,7 @@ export function showCart() {
     }
   });
 
-  cartContainer.querySelectorAll('.js-close-cart').forEach(closeBtn => {
+  closeCartBtns.forEach(closeBtn => {
     closeBtn.addEventListener('click', () => {
       cartContainer.classList.remove('show');
       document.querySelector('.js-cart-checkout-grid').classList.remove('checkout-side');
@@ -194,8 +197,17 @@ export function showCart() {
   });
 
 
-  cartCheckoutBtn.addEventListener('click', () => {
+  trackOrderBtn.addEventListener('click', () => {
     document.querySelector('.js-cart-checkout-grid').classList.add('checkout-side');
+  });
+
+  cartCheckoutBtn.addEventListener('click', () => {
+    if (cart.cartItems.length !== 0) {
+      window.location.href = "checkout.html";
+    } else {
+      // alert user to add products.
+    }
+    // console.log(cart.cartItems.length);
   });
 
   const bodyHeight = window.innerHeight;
@@ -208,15 +220,15 @@ export function showCart() {
 }
 
 
-export function showCartScrollBar() {
-  const cartBody = document.querySelector('.js-cart-body');
+export function showCartScrollBar(domElement) {
+  // const cartBody = document.querySelector('.js-cart-body');
   let timeoutId;
 
-  cartBody.addEventListener('scroll', () => {
+  domElement.addEventListener('scroll', () => {
     clearTimeout(timeoutId);
-    cartBody.classList.add('show-scroll-bar');
+    domElement.classList.add('show-scroll-bar');
     timeoutId = setTimeout(() => {
-      cartBody.classList.remove('show-scroll-bar');
+      domElement.classList.remove('show-scroll-bar');
     }, 1500);
   });
 }

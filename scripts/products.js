@@ -7,6 +7,7 @@ const productsGrid = document.getElementById('products-grid');
 const cartBtn = document.querySelector('.js-cart-btn');
 const cartQuantityElem = document.getElementById('cart-icon-quantity');
 const clearCartBtn = document.querySelector('.js-clear-cart-btn');
+const cartBody = document.querySelector('.js-cart-body');
 
 // displaying checkmark
 let timeoutId;
@@ -14,8 +15,8 @@ let oldProductId = '0';
 
 // giveProductsHeaderShadow();
 showCart();
-showCartScrollBar();
 showMenu();
+showCartScrollBar(cartBody);
 
 cart.updateCartQuantityElem(cartQuantityElem);
 

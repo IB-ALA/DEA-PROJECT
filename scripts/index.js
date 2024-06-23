@@ -9,13 +9,15 @@ const cartBtn = document.querySelector('.js-cart-btn');
 const clearCartBtn = document.querySelector('.js-clear-cart-btn');
 const shopStatusContainer = document.getElementById('shop-status');
 
+const cartBody = document.querySelector('.js-cart-body');
+
 cart.updateCartQuantityElem(cartQuantityElem);
 
 changeUiColor();
 showMenu();
 startScrolls();
 showCart();
-showCartScrollBar();
+showCartScrollBar(cartBody);
 sendForm();
 renderShopStatus();
 giveShopStausOpacityEffects();

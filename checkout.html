@@ -55,7 +55,7 @@
           <form action="#">
             <div class="row">
               <div class="col">
-                <input placeholder="" type="text" id="first-name">
+                <input placeholder="" type="text" id="first-name" autofocus>
                 <label for="first-name" class="alert required">first name</label>
               </div>
               <div class="col">
@@ -66,7 +66,7 @@
 
             <div class="row">
               <div class="col">
-                <input placeholder="" type="tel" id="phone-number">
+                <input placeholder="" type="tel" id="phone-number" inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
                 <label for="phone-number" class="alert required">phone number</label>
               </div>
               <div class="col">
@@ -175,7 +175,7 @@
 
         <div class="order-summary-body">
           <div class="order-summary-container">
-            <div class="order-details-container">
+            <div class="order-details-container js-order-details-container">
               <div class="cart-item-grid">
                 <div class="item-image">
                   <img src="images/products/umbrella.jpg" alt="Umbrella">
@@ -183,7 +183,7 @@
   
                 <div class="order-item-details">
                   <div class="left-side">
-                    <p class="item-name">Umbrella</p> <br>
+                    <p class="item-name">Umbrella</p>
                     <p class="item-price">₵25.00</p>
                   </div>
   
@@ -200,7 +200,24 @@
   
                 <div class="order-item-details">
                   <div class="left-side">
-                    <p class="item-name">Cloth softener</p> <br>
+                    <p class="item-name">Cloth softener</p>
+                    <p class="item-price">₵25.00</p>
+                  </div>
+  
+                  <div class="right-side">
+                    <p class="item-quantity">X1</p>
+                  </div>
+                </div>
+              </div>
+                
+              <div class="cart-item-grid">
+                <div class="item-image">
+                  <img src="images/products/black-2-slot-toaster.jpg" alt="">
+                </div>
+  
+                <div class="order-item-details">
+                  <div class="left-side">
+                    <p class="item-name">Cloth softener</p>
                     <p class="item-price">₵25.00</p>
                   </div>
   
@@ -243,5 +260,6 @@
 
 
   <script type="module" src="scripts/products-checkout-header.js"></script>
+  <script type="module" src="scripts/checkout.js"></script>
 </body>
 </html>
