@@ -180,25 +180,25 @@ export function showCart() {
 
   cartBtn.addEventListener('click', () => {
     cartContainer.classList.toggle('show');
-    if (document.querySelector('.js-cart-checkout-grid').classList.contains('checkout-side')) {
-      document.querySelector('.js-cart-checkout-grid').classList.remove('checkout-side');
+    if (document.querySelector('.js-cart-track-order-grid').classList.contains('track-order-side')) {
+      document.querySelector('.js-cart-track-order-grid').classList.remove('track-order-side');
     }
   });
 
   closeCartBtns.forEach(closeBtn => {
     closeBtn.addEventListener('click', () => {
       cartContainer.classList.remove('show');
-      document.querySelector('.js-cart-checkout-grid').classList.remove('checkout-side');
+      document.querySelector('.js-cart-track-order-grid').classList.remove('track-order-side');
     });
   });
 
-  cartContainer.querySelector('.js-checkout-back-btn').addEventListener('click', () => {
-    document.querySelector('.js-cart-checkout-grid').classList.remove('checkout-side');
+  cartContainer.querySelector('.js-track-order-back-btn').addEventListener('click', () => {
+    document.querySelector('.js-cart-track-order-grid').classList.remove('track-order-side');
   });
 
 
   trackOrderBtn.addEventListener('click', () => {
-    document.querySelector('.js-cart-checkout-grid').classList.add('checkout-side');
+    document.querySelector('.js-cart-track-order-grid').classList.add('track-order-side');
   });
 
   cartCheckoutBtn.addEventListener('click', () => {

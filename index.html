@@ -91,7 +91,7 @@
       </button>
 
       <section class="cart js-cart">
-        <div class="cart-checkout-grid js-cart-checkout-grid">
+        <div class="cart-track-order-grid js-cart-track-order-grid">
 
           <div class="cart-side">
             <div class="cart-header">
@@ -103,7 +103,7 @@
 
               <p>cart (<span><a href="products.html#products" class="js-cart-header-items-text"></a></span>)</p>
 
-              <button class="track-order-btn js-track-order-btn">track an order</button>
+              <button class="track-order-btn js-track-order-btn">track order</button>
             </div>
             <!-- <button class="track-order-btn">track an order</button> -->
 
@@ -204,13 +204,13 @@
             </button> -->
           </div>
 
-          <div class="checkout-side">
+          <div class="track-order-side">
             <div class="cart-header">
-              <button class="js-checkout-back-btn">
+              <button class="js-track-order-back-btn">
                 ⇦
               </button>
 
-              <p>cart (<span class="js-cart-header-items-text">2 items</span>)</p>
+              <p>track order</p>
 
               <button class="js-close-cart">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
@@ -219,6 +219,23 @@
               </button>
             </div>
             
+            <div class="track-order-body">
+              <div class="search-order-section">
+                <div class="searchbar-container">
+                  <input type="text" placeholder="Enter OrderID">
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                      <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="search-alternative-side">
+                  <p>Forgot OrderId?</p>
+                  <p class="js-alternate-search">Use Email And Phone No.</p>
+                </div>
+
+              </div>
+            </div>
 
           </div>
         </div>
@@ -481,9 +498,9 @@
 
 
   <!-- email -->
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <!-- <script src="https://smtpjs.com/v3/smtp.js"></script> -->
   <!-- alert -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
   <script type="module" src="scripts/index.js"></script>
 </body>
 </html>
