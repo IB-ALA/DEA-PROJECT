@@ -350,8 +350,7 @@ footer .bottom p span {
   letter-spacing: 0.13rem;
 }
 
-.cart-body,
-.track-order-body {
+.cart-body {
   /* border: 2px solid red; */
   height: 100%;
   overflow-y: scroll;
@@ -571,12 +570,35 @@ footer .bottom p span {
   color: hsl(0, 0%, 0%);
 }
 
+.track-order-load {
+  height: 4px;
+  background-color: hsl(0, 79%, 80%);
+  position: relative;
+}
+.track-order-load>span {
+  height: 4px;
+  background-color: hsl(0, 79%, 65%);
+  border-radius: 10px;
+  position: absolute;
+  /* left: -30%; */
+  width: 30%;
+  animation: loading 1.5s linear infinite;
+}
+@keyframes loading {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}
 
 .track-order-body {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   /* height: 100%; */
-  /* overflow-y: scroll; */
-  padding: 0 10px;
+  overflow-y: scroll;
+  padding: 0 10px 15px;
+  height: 93%;
 }
 
 .search-order-section {
@@ -585,6 +607,7 @@ footer .bottom p span {
   display: flex;
   flex-direction: column;
   border-bottom: 2px dashed hsl(0, 0%, 92%);
+  margin-bottom: 20px;
   /* justify-content: center; */
   /* align-items: center; */
 }
@@ -604,7 +627,7 @@ footer .bottom p span {
   outline: none;
   background-color: hsl(0, 0%, 96%);
   border-radius: 7px;
-
+  box-shadow: 2px 2px 8px hsl(0, 0%, 85%);
 }
 .searchbar-container>input::placeholder {
   padding: 13px 6px;
@@ -630,7 +653,7 @@ footer .bottom p span {
   margin-top: 2px;
   width: 30px;
   height: 30px;
-  fill: hsl(0, 0%, 30%);
+  fill: hsl(0, 0%, 50%);
 }
 
 .search-alternative-side {
@@ -656,6 +679,130 @@ footer .bottom p span {
 }
 .search-alternative-side p:last-child:hover {
   color: hsl(199, 99%, 28%);
+}
+
+.each-order-container {
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px hsl(0, 0%, 90%);
+}
+.each-order-container:not(:first-child) {
+  margin-top: 15px;
+}
+
+.order-info-section {
+  /* border: 2px solid blue; */
+  border-radius: 8px 8px 0 0;
+  /* margin-bottom: 5px; */
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: hsl(0, 0%, 94%);
+}
+.order-info-section div {
+  /* border: 2px solid red; */
+}
+.order-info-section div p {
+  color: hsl(0, 0%, 35%);
+  text-transform: uppercase;
+  font-size: .8rem;
+  font-weight: bold;
+}
+.order-info-section div p:first-child {
+  margin-bottom: 3px;
+}
+.order-info-section div p>span {
+  color: hsl(0, 0%, 35%);
+  text-transform: capitalize;
+  font-size: .9rem;
+  font-weight: normal;
+}
+
+.order-details {
+  border: 2px solid hsl(0, 0%, 95%);
+  border-top: none;
+  padding: 8px;
+  border-radius: 0 0 8px 8px;
+}
+
+.order-item {
+  /* border: 2px solid red; */
+  /* display: flex;
+  gap: 5px; */
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+.order-item:not(:first-child) {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 2px dashed hsl(0, 0%, 90%);
+}
+.order-item>div {
+  /* border: 2px solid green; */
+  display: flex;
+}
+
+.order-item-img {
+  max-height: 80px;
+  max-width: 80px;
+  /* width: 80px;
+  height: 80px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 0;
+  border-right: 1px solid hsl(0, 0%, 90%);
+}
+.order-item-img>img{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.order-item-details {
+  /* width: 100%; */
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  height: fit-content;
+}
+.order-item-details div {
+  /* border: 2px solid red; */
+}
+.order-item-details .left-side {
+  /* width: 100%; */
+  display: flex;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  flex-direction: column;
+  /* height: fit-content; */
+}
+.left-side p {
+  color: hsl(0, 0%, 45%);
+  font-size: 18px;
+  letter-spacing: .05rem;
+  font-weight: bold;
+}
+.left-side p:first-child {
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+.order-item-details .right-side {
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  /* padding: 0 5px; */
+  font-size: 18px;
+  color: hsl(0, 0%, 30%);
+  /* border: 2px solid red; */
+  /* flex-direction: column; */
+}
+.order-item-details .right-side>p {
+  border-left: 1px solid hsl(0, 0%, 80%);
+  padding: 5px 0 5px 5px;
 }
 
 .remove {
