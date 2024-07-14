@@ -776,9 +776,6 @@ footer .bottom p span {
   /* align-items: center; */
   height: fit-content;
 }
-.order-item-details div {
-  /* border: 2px solid red; */
-}
 .order-item-details .left-side {
   /* width: 100%; */
   display: flex;

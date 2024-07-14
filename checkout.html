@@ -257,30 +257,68 @@
 
     <article class="">
       <section class="payment-gateway js-payment-gateway remove">
-        <form action="" class="form-section" id="momo-form">
-          <h2>pay with mobile money</h2>
-          <div class="">
-            <input class="momo-input" placeholder="" type="text" name="momo-number" id="momo-number" required inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*" autofocus>
-            <label for="momo-number" class="alert required">mobile money number</label>
-            <p class="remove" id="momo-alert-1">enter valid number</p>
+        <div class="need-loading-feature" id="momo-form-container">
+          <div class="loading remove js-loading" id="loading-feature">
+            <span></span>
           </div>
 
-          <div class="">
-            <input class="momo-input" placeholder="" type="text" name="number-confirmation" id="number-confirmation" required inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
-            <label for="number-confirmation" class="alert required">confirm number</label>
-            <p class="remove" id="momo-alert-2">numbers do not match</p>
+          <form action="" class="form-section" id="momo-form">
+            <h2>pay with mobile money</h2>
+            <div class="">
+              <input class="momo-input" placeholder="" type="text" name="momo-number" id="momo-number" required inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*" autofocus>
+              <label for="momo-number" class="alert required">mobile money number</label>
+              <p class="remove" id="momo-alert-1">enter valid number</p>
+            </div>
+  
+            <div class="">
+              <input class="momo-input" placeholder="" type="text" name="number-confirmation" id="number-confirmation" required inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
+              <label for="number-confirmation" class="alert required">confirm number</label>
+              <p class="remove" id="momo-alert-2">numbers do not match</p>
+            </div>
+  
+            <div class="">
+              <select name="" id="">
+                <option value="at">AT</option>
+                <option value="mtn" selected>MTN</option>
+                <option value="telecel">TELECEL</option>
+              </select>
+            </div>
+  
+            <button type="submit" id="finish-payment-btn">pay</button>
+          </form>
+        </div>
+
+        <!-- payment approval -->
+        <div class="payment-msg need-loading-feature remove" id="payment-approval-container">
+          <div class="loading js-loading remove" id="loading-feature">
+            <span></span>
           </div>
 
-          <div class="">
-            <select name="" id="">
-              <option value="at">AT</option>
-              <option value="mtn" selected>MTN</option>
-              <option value="telecel">TELECEL</option>
-            </select>
-          </div>
+          <p>
+            Check Your phone and approve payment...
+          </p>
+          <button id="payment-approved-btn">
+            i have paid
+          </button>
+        </div>
 
-          <button type="submit" id="finish-payment-btn">pay</button>
-        </form>
+        <!-- failed payment -->
+        <div class="payment-msg remove" id="payment-failure">
+          <p>an error may have occured. please try again later.</p>
+          <button id="retry-payment-btn">try again</button>
+        </div>
+
+        <!-- successful payment -->
+        <div class="payment-msg remove" id="payment-successful">
+          <p>ORDER PLACED SUCCESSFULLY.</p>
+          <img src="images/icons/checkmark.png" alt="checkmark">
+          <p>OrderID: <span>jjtf4tf45vu7i2v</span></p>
+          <p>copy and save OrderID to track your order anytime.</p>
+
+          <a href="">
+            <button id="back-to-store-btn">done</button>
+          </a>
+        </div>
       </section>
     </article>
 
