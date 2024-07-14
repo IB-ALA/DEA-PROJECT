@@ -58,7 +58,7 @@
 
           <div class="cart js-cart">
 
-            <div class="cart-checkout-grid js-cart-checkout-grid">
+            <div class="cart-track-order-grid js-cart-track-order-grid">
 
               <div class="cart-side">
                 <div class="cart-header">
@@ -178,21 +178,192 @@
                 </div>
               </div>
     
-              <div class="checkout-side">
-                <div class="cart-header">
-                  <button class="js-checkout-back-btn">
+              <div class="track-order-side">
+                <div class="track-order-header">
+                  <button class="js-track-order-back-btn">
                     ⇦
                   </button>
     
-                  <p>cart (<span class="js-cart-header-items-text">2 items</span>)</p>
-
+                  <p>track order</p>
+    
                   <button class="js-close-cart">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                       <path d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
                     </svg>
                   </button>
                 </div>
+    
+                <div class="track-order-load js-track-order-load remove">
+                  <span></span>
+                </div>
+                
+                <div class="track-order-body js-track-order-body">
 
+                  <div class="search-order-section">
+                    <div class="searchbar-container">
+                      <input type="text" placeholder="Enter OrderID" id="orderid-search-option-input" class="">
+                      <input type="text" placeholder="Enter Email" id="email-search-option-input" class="remove">
+                      <button id="search-order-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                          <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"></path>
+                        </svg>
+                      </button>
+                    </div>
+    
+                    <div class="search-alternative-side">
+                      <p id="forgot-orderid-text">Forgot OrderId?</p>
+                      <p class="js-alternate-search-option">Use Email</p>
+                    </div>
+                  </div>
+    
+                  <div class="each-order-container">
+                    <div class="order-info-section">
+                      <div class="">
+                        <p>id: <span>20v32Zm240-320q33</span></p>
+                        <p>date: <span>2024-07-12</span></p>
+                      </div>
+                      <div class="">
+                        <p>total: <span>₵67.00</span></p>
+                        <p>status: <span>deliverying</span></p>
+                      </div>
+                    </div>
+    
+                    <div class="order-details">
+                      
+                      <div class="order-item">
+                        <div class="order-item-img">
+                          <img src="images/products/vanity-mirror-silver.jpg" alt="Vanity mirror-Silver">
+                        </div>
+    
+                        <div class="order-item-details">
+                          <div class="left-side">
+                            <p>Vanity mirror-Silver</p>
+                            <p>₵27.00</p>
+                          </div>
+                          <div class="right-side">
+                            <p>X1</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div class="order-item">
+                        <div class="order-item-img">
+                          <img src="images/products/vanity-mirror-silver.jpg" alt="Vanity mirror-Silver">
+                        </div>
+    
+                        <div class="order-item-details">
+                          <div class="left-side">
+                            <p>Vanity mirror-Silver</p>
+                            <p>₵27.00</p>
+                          </div>
+                          <div class="right-side">
+                            <p>X1</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+    
+                  <div class="each-order-container">
+                    <div class="order-info-section">
+                      <div class="left-side">
+                        <p>id: <span>20v32Zm240-320q33</span></p>
+                        <p>date: <span>2024-07-12</span></p>
+                      </div>
+                      <div class="right-side">
+                        <p>total: <span>₵67.00</span></p>
+                        <p>status: <span>deliverying</span></p>
+                      </div>
+                    </div>
+    
+                    <div class="order-details">
+    
+                      <div class="order-item">
+                        <div class="order-item-img">
+                          <img src="images/products/vanity-mirror-silver.jpg" alt="Vanity mirror-Silver">
+                        </div>
+    
+                        <div class="order-item-details">
+                          <div class="left-side">
+                            <p>Vanity mirror-Silver</p>
+                            <p>₵27.00</p>
+                          </div>
+                          <div class="right-side">
+                            <p>X1</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div class="order-item">
+                        <div class="order-item-img">
+                          <img src="images/products/vanity-mirror-silver.jpg" alt="Vanity mirror-Silver">
+                        </div>
+    
+                        <div class="order-item-details">
+                          <div class="left-side">
+                            <p>Vanity mirror-Silver</p>
+                            <p>₵27.00</p>
+                          </div>
+                          <div class="right-side">
+                            <p>X1</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+    
+                  <div class="each-order-container">
+                    <div class="order-info-section">
+                      <div class="left-side">
+                        <p>id: <span>20v32Zm240-320q33</span></p>
+                        <p>date: <span>2024-07-12</span></p>
+                      </div>
+                      <div class="right-side">
+                        <p>total: <span>₵67.00</span></p>
+                        <p>status: <span>deliverying</span></p>
+                      </div>
+                    </div>
+    
+                    <div class="order-details">
+    
+                      <div class="order-item">
+                        <div class="order-item-img">
+                          <img src="images/products/vanity-mirror-silver.jpg" alt="Vanity mirror-Silver">
+                        </div>
+    
+                        <div class="order-item-details">
+                          <div class="left-side">
+                            <p>Vanity mirror-Silver</p>
+                            <p>₵27.00</p>
+                          </div>
+                          <div class="right-side">
+                            <p>X1</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div class="order-item">
+                        <div class="order-item-img">
+                          <img src="images/products/vanity-mirror-silver.jpg" alt="Vanity mirror-Silver">
+                        </div>
+    
+                        <div class="order-item-details">
+                          <div class="left-side">
+                            <p>Vanity mirror-Silver</p>
+                            <p>₵27.00</p>
+                          </div>
+                          <div class="right-side">
+                            <p>X1</p>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+                </div>
+    
               </div>
             </div>
 

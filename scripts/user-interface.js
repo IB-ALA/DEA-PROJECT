@@ -220,17 +220,63 @@ export function showCart() {
 }
 
 
-export function showCartScrollBar(domElement) {
+export function showScrollBar(domElement) {
   // const cartBody = document.querySelector('.js-cart-body');
   let timeoutId;
 
   domElement.addEventListener('scroll', () => {
-    clearTimeout(timeoutId);
-    domElement.classList.add('show-scroll-bar');
-    timeoutId = setTimeout(() => {
-      domElement.classList.remove('show-scroll-bar');
-    }, 1500);
+    addScrollbarEffect(timeoutId, domElement)
   });
+  // domElement.addEventListener('mouseover', () => {
+  //   addScrollbarEffect(timeoutId, domElement)
+  // });
+}
+function addScrollbarEffect(timeoutId, domElement) {
+  clearTimeout(timeoutId);
+  domElement.classList.add('show-scroll-bar');
+  timeoutId = setTimeout(() => {
+    domElement.classList.remove('show-scroll-bar');
+  }, 1500);
+}
+
+
+export function trackOrderFunctions() {
+  const searchOrderBtn = document.getElementById('search-order-btn');
+  searchOrderBtn.addEventListener('click', () => {
+    searchOrder();
+  });
+
+
+  document.querySelector('.js-alternate-search-option').addEventListener('click', () => {
+    switchSearchAlternative();
+  });
+
+
+
+
+  function searchOrder() {
+    try {
+      document.querySelector('.js-track-order-load').classList.remove('remove');
+      setTimeout(() => {
+        document.querySelector('.js-track-order-load').classList.add('remove');
+      }, 2000);
+    } catch (error) {
+      // some code here
+    }
+  }
+
+  function switchSearchAlternative() {
+    document.getElementById('email-search-option-input').classList.toggle('remove');
+    document.getElementById('orderid-search-option-input').classList.toggle('remove');
+    document.getElementById('forgot-orderid-text').classList.toggle('remove');
+
+    const switchSearchAlternativeElem = document.querySelector('.js-alternate-search-option');
+    if (switchSearchAlternativeElem.innerText === 'Use Email') {
+      switchSearchAlternativeElem.innerText = 'Use OrderID';
+    } else {
+      switchSearchAlternativeElem.innerText = 'Use Email';
+    }
+  }
 }
 
 
@@ -341,7 +387,7 @@ export function sendForm() {
 
 function checkInputs() {
   const formInputs = document.querySelectorAll('.form-input');
-    for (const inputElem of formInputs) {
+  for (const inputElem of formInputs) {
     if (inputElem.value === '') {
       inputElem.parentElement.classList.add('error');
     }

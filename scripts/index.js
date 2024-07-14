@@ -1,6 +1,6 @@
-import { changeUiColor, startScrolls, showCart, showCartScrollBar, showMenu, sendForm, giveShopStausOpacityEffects } from './user-interface.js';
+import { changeUiColor, startScrolls, showCart, showScrollBar, showMenu, sendForm, giveShopStausOpacityEffects, trackOrderFunctions } from './user-interface.js';
 import { cart } from './cart.js';
-import { checkShopStatus } from './days.js';
+// import { checkShopStatus } from './days.js';
 
 
 const cartQuantityElem = document.getElementById('cart-icon-quantity');
@@ -10,6 +10,7 @@ const clearCartBtn = document.querySelector('.js-clear-cart-btn');
 const shopStatusContainer = document.getElementById('shop-status');
 
 const cartBody = document.querySelector('.js-cart-body');
+const trackOrderBody = document.querySelector('.js-track-order-body');
 
 cart.updateCartQuantityElem(cartQuantityElem);
 
@@ -17,12 +18,13 @@ changeUiColor();
 showMenu();
 startScrolls();
 showCart();
-showCartScrollBar(cartBody);
+showScrollBar(cartBody);
+showScrollBar(trackOrderBody);
 sendForm();
-renderShopStatus();
+// renderShopStatus();
 giveShopStausOpacityEffects();
 
-setInterval(renderShopStatus, 60000);
+// setInterval(renderShopStatus, 60000);
 
 window.addEventListener('scroll', changeUiColor);
 
@@ -35,7 +37,7 @@ clearCartBtn.addEventListener('click', () => {
   cart.clearCart();
 });
 
-
+trackOrderFunctions();
 
 function renderShopStatus() {
   let shopStatus;

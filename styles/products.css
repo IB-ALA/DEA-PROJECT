@@ -342,7 +342,8 @@ footer {
 }
 
 
-.cart-header p {
+.cart-header p,
+.track-order-header p {
   justify-self: center;
   margin: 0 auto;
   /* border: 2px solid blue; */

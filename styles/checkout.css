@@ -111,7 +111,8 @@ form .col {
   margin: 0 0 15px;
 }
 
-.delivery-details-container form input {
+.delivery-details-container form input,
+.payment-gateway form input {
   width: 300px;
   padding: 22px 10px 8px;
   /* margin: 0 0 15px; */
@@ -123,14 +124,17 @@ form .col {
   background-color: transparent;
 }
 .delivery-details-container form input:focus + label,
-.delivery-details-container form input:not(:placeholder-shown) + label {
+.delivery-details-container form input:not(:placeholder-shown) + label,
+.payment-gateway form input:focus + label,
+.payment-gateway form input:not(:placeholder-shown) + label {
   top: 20%;
   left: 10px;
   font-size: 13px;
   color: hsl(0, 0%, 80%);
 }
 
-form .row .col label {
+form .row .col label,
+.payment-gateway label {
   position: absolute;
   color: hsl(0, 0%, 55%);
   top: 50%;
@@ -141,12 +145,14 @@ form .row .col label {
   text-transform: capitalize;
 }
 
-.col label.required::after {
+.col label.required::after,
+.payment-gateway label.required::after {
   content: ' *';
   color: hsl(0, 100%, 45%);
 }
 
-.delivery-details-container form select {
+.delivery-details-container form select,
+.payment-gateway form select {
   width: 300px;
   padding: 15px 10px;
   /* margin: 0 0 15px; */
@@ -159,7 +165,8 @@ form .row .col label {
   color: hsl(0, 0%, 30%);
 }
 
-.delivery-details-container form select option {
+.delivery-details-container form select option,
+.payment-gateway form select option {
   text-transform: capitalize;
   color: hsl(0, 0%, 30%);
 }
@@ -589,7 +596,65 @@ form .row .col label {
 }
 
 
+/* momo payment gateway */
 
+.payment-gateway {
+  /* border: red 2px solid; */
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsla(0, 0%, 0%, 0.7);
+  backdrop-filter: blur(15px);
+}
+
+.payment-gateway form {
+  /* background-color: hsl(0, 0%, 98%); */
+  /* border: none; */
+  border-color: hsl(0, 0%, 90%);
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  /* backdrop-filter: blur(20px); */
+}
+.payment-gateway form>h2 {
+  margin-bottom: 55px;
+  /* letter-spacing: 1px; */
+  word-spacing: 2px;
+  text-align: center;
+  color: hsl(0, 0%, 90%);
+}
+.payment-gateway>form>div:not(:nth-child(4)) {
+  margin-bottom: 35px;
+  position: relative;
+}
+.payment-gateway>form>div:nth-child(4) {
+  margin-bottom: 10px;
+}
+.payment-gateway form div input,
+.payment-gateway form div select {
+  border-color: hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 90%);
+}
+.payment-gateway form div label {
+  color: hsl(0, 0%, 80%);
+}
+.payment-gateway form div p {
+  position: absolute;
+  bottom: -16px;
+  font-size: .75rem;
+  text-transform: capitalize;
+  margin-left: 2px;
+  color: tomato;
+}
+
+
+.error {
+  border-color: tomato !important;
+  box-shadow: 0 0 5px hsla(9, 100%, 64%, 0.8);
+}
 
 
 

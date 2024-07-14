@@ -52,25 +52,25 @@
         <div class="delivery-details-container">
           <h2>delivery details</h2>
 
-          <form action="#">
+          <form id="payment-details-form">
             <div class="row">
               <div class="col">
-                <input placeholder="" type="text" id="first-name" autofocus>
+                <input class="payment-details-form-input" placeholder="" type="text" id="first-name" autofocus>
                 <label for="first-name" class="alert required">first name</label>
               </div>
               <div class="col">
-                <input placeholder="" type="text" id="last-name">
+                <input class="payment-details-form-input" placeholder="" type="text" id="last-name">
                 <label for="last-name" class="alert required">last name</label>
               </div>
             </div>
 
             <div class="row">
               <div class="col">
-                <input placeholder="" type="tel" id="phone-number" inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
+                <input class="payment-details-form-input" placeholder="" type="tel" id="phone-number" inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
                 <label for="phone-number" class="alert required">phone number</label>
               </div>
               <div class="col">
-                <input placeholder="" type="email" id="email">
+                <input class="payment-details-form-input" placeholder="" type="email" id="email">
                 <label for="email" class="alert required">email</label>
               </div>
             </div>
@@ -96,11 +96,11 @@
 
             <div class="row">
               <div class="col">
-                <input placeholder="" type="text" id="address/landmark">
+                <input class="payment-details-form-input" placeholder="" type="text" id="address/landmark">
                 <label for="address/landmark" class="alert required">address/closest landmark</label>
               </div>
               <div class="col">
-                <input placeholder="" type="text" id="ZIP">
+                <input class="" placeholder="" type="text" id="ZIP">
                 <label for="ZIP" class="alert">ZIP code</label>
               </div>
             </div>
@@ -143,7 +143,7 @@
           </div>
         </div>
 
-        <button>
+        <button id="proceed-to-pay-btn">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
             <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"></path>
           </svg>
@@ -251,6 +251,36 @@
             </div>
           </div>
         </div>
+      </section>
+    </article>
+
+
+    <article class="">
+      <section class="payment-gateway js-payment-gateway remove">
+        <form action="" class="form-section" id="momo-form">
+          <h2>pay with mobile money</h2>
+          <div class="">
+            <input class="momo-input" placeholder="" type="text" name="momo-number" id="momo-number" required inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*" autofocus>
+            <label for="momo-number" class="alert required">mobile money number</label>
+            <p class="remove" id="momo-alert-1">enter valid number</p>
+          </div>
+
+          <div class="">
+            <input class="momo-input" placeholder="" type="text" name="number-confirmation" id="number-confirmation" required inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
+            <label for="number-confirmation" class="alert required">confirm number</label>
+            <p class="remove" id="momo-alert-2">numbers do not match</p>
+          </div>
+
+          <div class="">
+            <select name="" id="">
+              <option value="at">AT</option>
+              <option value="mtn" selected>MTN</option>
+              <option value="telecel">TELECEL</option>
+            </select>
+          </div>
+
+          <button type="submit" id="finish-payment-btn">pay</button>
+        </form>
       </section>
     </article>
 

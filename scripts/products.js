@@ -1,5 +1,5 @@
 import { products } from './data/products.js';
-import { showCart, showCartScrollBar, showMenu } from './user-interface.js';
+import { showCart, showScrollBar, showMenu, trackOrderFunctions } from './user-interface.js';
 import { cart } from './cart.js';
 
 const cartItemsLink = document.querySelector('.js-cart-header-items-text');
@@ -8,6 +8,7 @@ const cartBtn = document.querySelector('.js-cart-btn');
 const cartQuantityElem = document.getElementById('cart-icon-quantity');
 const clearCartBtn = document.querySelector('.js-clear-cart-btn');
 const cartBody = document.querySelector('.js-cart-body');
+const trackOrderBody = document.querySelector('.js-track-order-body');
 
 // displaying checkmark
 let timeoutId;
@@ -16,7 +17,8 @@ let oldProductId = '0';
 // giveProductsHeaderShadow();
 showCart();
 showMenu();
-showCartScrollBar(cartBody);
+showScrollBar(cartBody);
+showScrollBar(trackOrderBody);
 
 cart.updateCartQuantityElem(cartQuantityElem);
 
@@ -36,6 +38,9 @@ cartItemsLink.addEventListener('click', () => {
   document.querySelector('.js-cart').classList.remove('show');
   document.querySelector('.js-cart-checkout-grid').classList.remove('checkout-side');
 });
+
+
+trackOrderFunctions();
 
 
 function renderProducts() {
