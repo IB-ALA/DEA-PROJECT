@@ -1,7 +1,8 @@
 import { showScrollBar } from './user-interface.js';
-// import { cart } from './cart.js';
+import { cart } from './cart.js';
+import { getProduct } from './data/products.js';
+import formatCurrency from './money.js';
 
-const orderDetailsContainer = document.querySelector('.js-order-details-container');
 // const paymentDetailsFormElem = document.getElementById('payment-details-form');
 const paymentFormInputs = document.querySelectorAll('.payment-details-form-input');
 const proceedToPayBtn = document.getElementById('proceed-to-pay-btn');
@@ -17,9 +18,9 @@ const paymentSuccessfulElem = document.getElementById('payment-successful');
 const paymentApprovedBtn = document.getElementById('payment-approved-btn');
 
 const retryPaymentBtn = document.getElementById('retry-payment-btn');
-// const backToStoreBtn = document.getElementById('back-to-store-btn');
 
-showScrollBar(orderDetailsContainer);
+const orderTotalQuantityElem = document.querySelector('.js-order-total-quantity');
+orderTotalQuantityElem.innerHTML = `${cart.findCartTotal()} items`;
 
 proceedToPayBtn.addEventListener('click', () => {
   checkPaymentDetailsInputs();
@@ -51,10 +52,12 @@ paymentGatewayElem.addEventListener('click', (e) => {
     console.log(paymentSuccessfulElem.classList.contains('remove'));
   } else if (e.target.classList.contains('js-payment-gateway') && !paymentSuccessfulElem.classList.contains('remove')) {
     // sessionStorage.setItem('redirected', true);
-    // window.location.href = "products.html";
+    window.location.href = "products.html";
+    // window.history.forward();
     // window.history.replaceState();
   }
 });
+window.history.forward();
 
 
 
@@ -220,3 +223,73 @@ retryPaymentBtn.addEventListener('click', () => {
   momoFormContainer.classList.remove('remove');
   paymentFailureElem.classList.add('remove');
 });
+
+
+renderOrderSummary();
+
+
+function renderOrderSummary() {
+  const orderSummaryContainer = document.querySelector('.js-order-summary-container');
+  const discount = 0;
+  const additionalCost = 0;
+
+
+  let orderItemsHtml = '';
+  cart.cartItems.forEach(orderItem => {
+    const product = getProduct(orderItem.productId);
+
+    orderItemsHtml += `
+      <div class="cart-item-grid">
+        <div class="item-image">
+          <img src="${product.image}" alt="Umbrella">
+        </div>
+
+        <div class="order-item-details">
+          <div class="left-side">
+            <p class="item-name">${product.name}</p>
+            <p class="item-price">₵${formatCurrency(product.pricePesewas)}</p>
+          </div>
+
+          <div class="right-side">
+            <p class="item-quantity">X${orderItem.quantity}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  let orderSummaryBodyHtml = `
+    <div class="order-details-container js-order-details-container">
+      ${orderItemsHtml}
+    </div>
+
+    <div class="order-billings-container">
+      <div class="cart-total-container">
+        <p>order total:</p>
+        <p>₵${formatCurrency(cart.calculateCartTotalAmount())}</p>
+      </div>
+
+      <div class="discount-amount-container">
+        <p>discount <span>${discount}%</span>:</p>
+        <p>-₵${formatCurrency(cart.calculateCartTotalAmount() * discount)}</p>
+      </div>
+
+      <div class="additonal-cost-container">
+        <p>additional cost:</p>
+        <p>₵${formatCurrency(additionalCost)}</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="order-total">
+      <h3>total:</h3>
+      <p>₵${formatCurrency(cart.calculateCartTotalAmount() + (cart.calculateCartTotalAmount() * discount) + additionalCost)}</p>
+    </div>
+  `;
+
+  orderSummaryContainer.innerHTML = orderSummaryBodyHtml;
+
+  const orderDetailsContainer = document.querySelector('.js-order-details-container');
+  showScrollBar(orderDetailsContainer);
+}
