@@ -20,6 +20,7 @@ form .row,
 .order-summary-head .top-side,
 .order-summary-head .top-side a,
 .order-summary-head .bottom-side,
+.payment-method-label,
 .payment-method input:checked + .payment-method-label::before,
 .order-item-details,
 .order-item-details .right-side,
@@ -194,6 +195,9 @@ form .row .col label,
   justify-content: start;
   overflow-x: auto;
   padding: 13px 3px;
+}
+.payment-method::-webkit-scrollbar {
+  display: none;
 }
 
 .payment-method input {
@@ -706,7 +710,8 @@ form .row .col label,
   margin-bottom: 10px;
   font-size: 1rem;
   text-transform: capitalize;
-  font-weight: bold
+  font-weight: bold;
+  text-align: center;
 }
 
 #payment-successful img {
@@ -729,6 +734,14 @@ a {
   text-decoration: none;
 }
 
+
+footer {
+  margin: 50px 0 3px;
+  width: 100%;
+}
+footer p {
+  width: 100% !important;
+}
 
 
 

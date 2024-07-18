@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="styles/general.css">
   <link rel="stylesheet" href="styles/products-checkout-header.css">
   <link rel="stylesheet" href="styles/checkout.css">
-  <link rel="stylesheet" href="styles/responsive/products-RD.css">
+  <link rel="stylesheet" href="styles/responsive/checkout-RD.css">
+  <!-- <link rel="stylesheet" href="styles/responsive/products-RD.css"> -->
   <link rel="stylesheet" href="styles/responsive/general-RD.css">
 </head>
 <body>
-  <header class="js-nav-bar header">
+  <header class="js-nav-bar header checkout">
     <a href="index.html" class="logo-container">
       <img src="images/DEA-logo.jpg" alt="">
     </a>
@@ -112,30 +113,40 @@
           <h3>Select Payment method</h3>
 
           <div class="payment-method">
-            <input type="radio" checked name="payment-method" id="momo">
-            <label for="momo" class="payment-method-label">
-              <img src="images/icons/momo.jpg" alt="mobile money">
-            </label>
+            <div>
+              <input type="radio" checked name="payment-method" id="momo">
+              <label for="momo" class="payment-method-label">
+                <img src="images/icons/momo.jpg" alt="mobile money">
+              </label>
+            </div>
 
-            <input type="radio" name="payment-method" id="visa">
-            <label for="visa" class="payment-method-label">
-              <img src="images/icons/visa.png" alt="visa">
-            </label>
+            <div>
+              <input type="radio" name="payment-method" id="visa">
+              <label for="visa" class="payment-method-label">
+                <img src="images/icons/visa.png" alt="visa">
+              </label>
+            </div>
 
-            <input type="radio" name="payment-method" id="master-card">
-            <label for="master-card" class="payment-method-label">
-              <img src="images/icons/mastercard.png" alt="master-card">
-            </label>
+            <div>
+              <input type="radio" name="payment-method" id="master-card">
+              <label for="master-card" class="payment-method-label">
+                <img src="images/icons/mastercard.png" alt="master-card">
+              </label>
+            </div>
 
-            <input type="radio" name="payment-method" id="paypal">
-            <label for="paypal" class="payment-method-label">
-              <img src="images/icons/paypal.png" alt="paypal">
-            </label>
+            <div>
+              <input type="radio" name="payment-method" id="paypal">
+              <label for="paypal" class="payment-method-label">
+                <img src="images/icons/paypal.png" alt="paypal">
+              </label>
+            </div>
 
-            <input type="radio" name="payment-method" id="stripe">
-            <label for="stripe" class="payment-method-label">
-              <img src="images/icons/stripe.png" alt="stripe">
-            </label>
+            <div>
+              <input type="radio" name="payment-method" id="stripe">
+              <label for="stripe" class="payment-method-label">
+                <img src="images/icons/stripe.png" alt="stripe">
+              </label>
+            </div>
           </div>
 
           <div class="respective-form">
@@ -326,6 +337,18 @@
     </article>
 
   </main>
+
+  <footer>
+    <article class="bottom">
+      <section>
+        <p>
+          DEA Cosmetics &copy;2024
+          <br>
+          <span>all rights reserved</span>
+        </p>
+      </section>
+    </article>  
+  </footer>
   
 
 
