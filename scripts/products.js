@@ -9,6 +9,8 @@ const cartQuantityElem = document.getElementById('cart-icon-quantity');
 const clearCartBtn = document.querySelector('.js-clear-cart-btn');
 const cartBody = document.querySelector('.js-cart-body');
 const trackOrderBody = document.querySelector('.js-track-order-body');
+const newsletterForm = document.getElementById('newsletter-form');
+const newsletterInputElem = document.getElementById('newsletter-input');
 
 // displaying checkmark
 let timeoutId;
@@ -97,6 +99,70 @@ function renderProducts() {
       }
     });
   });
+}
+// console.log(newsletterInputElem.value);
+
+
+newsletterForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const emailAlert = document.getElementById('email-warning');
+  const emailRegex = /^([a-z\d\.-]+)@([a-z\d-]+\.)([a-z]{2,3})?$/;
+
+  if (!newsletterInputElem.value.match(emailRegex)) {
+    if (newsletterInputElem.value !== '') {
+      emailAlert.classList.remove('remove');
+      emailAlert.innerText = 'Please enter a valid email address';
+    }
+  } else {
+    emailAlert.classList.add('remove');
+  }
+
+  newsletterInputElem.addEventListener('keyup', () => {
+    if (!newsletterInputElem.value.match(emailRegex)) {
+      if (newsletterInputElem.value !== '') {
+        emailAlert.classList.remove('remove');
+        emailAlert.innerText = 'Please enter a valid email address';
+      }
+    } else {
+      emailAlert.classList.add('remove');
+    }
+  });
+
+
+  if (emailAlert.classList.contains('remove')) {
+    console.log(newsletterInputElem.value);
+    window.alert('Subscibed Successfully!');
+    newsletterForm.reset();
+
+    /*
+    const result = subscribeToNewsletter(newsletterInputElem.value);
+
+    if (result === 'Added') {
+      window.alert('Subscribed Successfully!');
+      newsletterForm.reset();
+    } else if (result === 'Exists') {
+      window.alert('Already A Subscriber');
+      newsletterForm.reset();
+    } else {
+      window.alert('An Error Occurred, Try Subscribing Again');
+    }
+    */
+  }
+});
+
+async function subscribeToNewsletter(email) {
+  try {
+    const response = await fetch(`/dea/newletter/${email}`);
+    const data = await response.json();
+    if (data.Success) {
+      return data.data;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
 }
 
 

@@ -3,7 +3,7 @@
 // const { getAllProducts } = require('./database-queries');
 
 import express from 'express';
-import { getAllProducts } from './database-queries.js';
+import { addNewsletterSubscriber, getAllProducts } from './database-queries.js';
 
 
 // mysql2/promise style.
@@ -26,11 +26,14 @@ import { getAllProducts } from './database-queries.js';
 
 const app = express();
 
-app.get('/', (req, res) => {});
-
 app.get('/dea/products', async (req, res) => {
   getAllProducts(res);
 });
+
+app.get('/dea/newsletter/:email', (req, res) => {
+  addNewsletterSubscriber(req, res);
+});
+
 
 app.listen(5000, () => {
   console.log('Server listening on PORT 5000');

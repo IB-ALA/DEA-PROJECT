@@ -3,7 +3,8 @@ import { cart } from './cart.js';
 import { getProduct } from './data/products.js';
 import formatCurrency from './money.js';
 
-// const paymentDetailsFormElem = document.getElementById('payment-details-form');
+
+const paymentDetailsFormElem = document.getElementById('payment-details-form');
 const paymentFormInputs = document.querySelectorAll('.payment-details-form-input');
 const proceedToPayBtn = document.getElementById('proceed-to-pay-btn');
 const paymentGatewayElem = document.querySelector('.js-payment-gateway');
@@ -24,18 +25,24 @@ orderTotalQuantityElem.innerHTML = `${cart.findCartTotal()} items`;
 
 proceedToPayBtn.addEventListener('click', () => {
   checkPaymentDetailsInputs();
+  // const storageDeliveryDetails = JSON.parse(localStorage.getItem('deliveryDetails'));
 
   if (!paymentFormInputs[0].classList.contains('error') && !paymentFormInputs[1].classList.contains('error') && !paymentFormInputs[2].classList.contains('error') && !paymentFormInputs[3].classList.contains('error') && !paymentFormInputs[4].classList.contains('error')) {
     console.log('ALL IS WELL');
+    const paymentDetailsFormData = new FormData(paymentDetailsFormElem);
+    const deliveryDetails = Object.fromEntries(paymentDetailsFormData.entries());
+    console.log(deliveryDetails);
+    // localStorage.setItem('deliveryDetails', deliveryDetails);
+    // localStorage.removeItem('deliveryDetails');
     switch (true) {
       case momo.checked:
         console.log('MOMO IS SELECTED');
         paymentGatewayElem.classList.remove('remove');
-        break;
+      break;
     
       default:
         console.log('OPTION NOT AVAILABLE YET');
-        break;
+      break;
     }
   } else {
     console.log('ERROR SOMEWHERE');

@@ -503,17 +503,18 @@
       <p>
         If you want to be notified when new products are available, Subscribe to our newsletter.
       </p>
-      <section class="form-section">
-        <input type="email" required placeholder="enter your email">
+      <form class="form-section" id="newsletter-form">
+        <input type="email" required placeholder="enter your email" id="newsletter-input">
 
-        <button title="Subscribe">
+        <button title="Subscribe" type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
             <path d="M440-160v-326L336-382l-56-58 200-200 200 200-56 58-104-104v326h-80ZM160-600v-120q0-33 23.5-56.5T240-800h480q33 0 56.5 23.5T800-720v120h-80v-120H240v120h-80Z"></path>
           </svg>
         </button>
 
         <!-- <button>Subscribe</button> -->
-      </section>
+      </form>
+      <p id="email-warning" class="remove"></p>
     </article>
   </main>
 
