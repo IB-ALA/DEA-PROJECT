@@ -3,6 +3,7 @@
 // const { getAllProducts } = require('./database-queries');
 
 import express from 'express';
+import cors from 'cors';
 import { addNewsletterSubscriber, getAllProducts } from './database-queries.js';
 
 
@@ -25,6 +26,8 @@ import { addNewsletterSubscriber, getAllProducts } from './database-queries.js';
 
 
 const app = express();
+
+app.use(cors());
 
 app.get('/dea/products', async (req, res) => {
   getAllProducts(res);
