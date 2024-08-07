@@ -13,10 +13,14 @@ CREATE TABLE newsletter_subscribers (
 -- SELECT * FROM newsletter_subscribers
 -- WHERE email = 'gggggggg';
 
+DESCRIBE newsletter_subscribers;
+
 SELECT * FROM newsletter_subscribers;
 
 DELETE FROM newsletter_subscribers
 WHERE email = 'ibalade@gmail.com';
+
+DROP TABLE newsletter_subscribers;
 
 
 -- USE dea_cosmetics_store;

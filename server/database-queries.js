@@ -50,9 +50,11 @@ export function getAllProducts(res) {
 
 export function addNewsletterSubscriber(req, res) {
   const connection = createDbConnection();
-  const { email } = req.params;
+  const { email } = req.body;
+  // const email = req.body.email;
   console.log(email);
 
+  // /*
   // const email = 'ibaladeveloper@gmail.com';
   try {
     connection.connect((err) => {
@@ -110,6 +112,7 @@ export function addNewsletterSubscriber(req, res) {
     .status(500)
     .json({ Success: false, data: error, from: ".connect" });
   }
+  // */
 }
 
 

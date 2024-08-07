@@ -730,10 +730,6 @@ form .row .col label,
   color: hsl(199, 99%, 36%);
 }
 
-a {
-  text-decoration: none;
-}
-
 
 footer {
   margin: 50px 0 3px;

@@ -1,4 +1,6 @@
-import { products } from './data/products.js';
+// We alternate between the 2 lines
+// import { products } from './data/products.js';
+import { newProducts as products } from './data/products.js';
 import { showCart, showScrollBar, showMenu, trackOrderFunctions } from './user-interface.js';
 import { cart } from './cart.js';
 
@@ -52,7 +54,7 @@ function renderProducts() {
     productsHTML += `
       <section class="product js-product" data-product-id="${product.id}">
         <div class="product-image">
-          <img src="${product.image}" alt="">
+          <img src="${product.getImage()}" alt="">
         </div>
         <h3 class="product-name">${product.name}</h3>
         <p class="product-price">${product.getPrice()}</p>
@@ -103,7 +105,7 @@ function renderProducts() {
 // console.log(newsletterInputElem.value);
 
 
-newsletterForm.addEventListener('submit', (e) => {
+newsletterForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const emailAlert = document.getElementById('email-warning');
@@ -131,13 +133,15 @@ newsletterForm.addEventListener('submit', (e) => {
 
 
   if (emailAlert.classList.contains('remove')) {
-    console.log(newsletterInputElem.value);
-    window.alert('Subscibed Successfully!');
-    newsletterForm.reset();
+    // console.log(newsletterInputElem.value);
+    // window.alert('Subscibed Successfully!');
+    // newsletterForm.reset();
 
-    /*
-    const result = subscribeToNewsletter(newsletterInputElem.value);
-
+    // /*
+    // const email = newsletterInputElem.value;
+    // console.log(email);
+    const result = await subscribeToNewsletter(newsletterInputElem.value);
+    console.log(result);
     if (result === 'Added') {
       window.alert('Subscribed Successfully!');
       newsletterForm.reset();
@@ -145,16 +149,51 @@ newsletterForm.addEventListener('submit', (e) => {
       window.alert('Already A Subscriber');
       newsletterForm.reset();
     } else {
+      console.log(result);
       window.alert('An Error Occurred, Try Subscribing Again');
     }
-    */
+    // */
+
+    // const email = newsletterInputElem.value;
+    // console.log(email);
+    // try {
+    //   const response = await fetch('http://localhost:5000/dea/newsletter', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       email: `${email}`
+    //     })
+    //   });
+    //   const data = await response.json();
+    //   if (data.Success) {
+    //     console.log(data.data);
+    //     return data.data;
+    //   } else {
+    //     console.log(false);
+    //     return false;
+    //   }
+    // } catch (error) {
+    //   console.log(false);
+    //   return false;
+    // }
   }
 });
 
 async function subscribeToNewsletter(email) {
   try {
-    const response = await fetch(`/dea/newletter/${email}`);
+    const response = await fetch('http://localhost:5000/dea/newsletter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: `${email}`
+      })
+    });
     const data = await response.json();
+    console.log(data);
     if (data.Success) {
       return data.data;
     } else {

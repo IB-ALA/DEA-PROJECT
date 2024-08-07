@@ -4,6 +4,7 @@
 
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import { addNewsletterSubscriber, getAllProducts } from './database-queries.js';
 
 
@@ -28,12 +29,14 @@ import { addNewsletterSubscriber, getAllProducts } from './database-queries.js';
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/dea/products', async (req, res) => {
   getAllProducts(res);
 });
 
-app.get('/dea/newsletter/:email', (req, res) => {
+app.post('/dea/newsletter', (req, res) => {
   addNewsletterSubscriber(req, res);
 });
 

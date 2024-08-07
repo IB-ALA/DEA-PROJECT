@@ -24,6 +24,28 @@ class Product {
   }
 }
 
+class NewProduct {
+  id;
+  name;
+  image;
+  pricePesewas;
+
+  constructor(productDetails) {
+    this.id = productDetails.product_id;
+    this.name = productDetails.name;
+    this.image = productDetails.image;
+    this.pricePesewas = productDetails.price_in_pesewas;
+  }
+
+  getPrice() {
+    return `₵${formatCurrency(this.pricePesewas)}`;
+  }
+
+  getImage() {
+    return `images/products/${this.image}`;
+  }
+}
+
 
 export const products = [
   {
@@ -79,8 +101,9 @@ export const products = [
 
 export function getProduct(productId) {
   let matchingProduct;
-  products.forEach(product => {
-    if (productId === product.id) {
+  // Alternate between newProducts and products.
+  newProducts.forEach(product => {
+    if (productId == product.id) {
       matchingProduct = product
     }
   });
@@ -90,4 +113,42 @@ export function getProduct(productId) {
   }
 }
 
-// console.log(products);
+export let newProducts = JSON.parse(sessionStorage.getItem('newProducts'));
+
+if (!newProducts) {
+  console.log('no newProducts');
+  // newProducts = 'hmm'
+  // console.log(newProducts);
+  fetctAllProducts();
+} else {
+  newProducts = newProducts.map(product => new NewProduct(product))
+}
+
+
+async function fetctAllProducts() {
+  // let newProducts = [];
+  try {
+    const productsFetch = await fetch('http://localhost:5000/dea/products');
+    const response = await productsFetch.json();
+    if (response.Success) {
+      newProducts = response.data;
+      sessionStorage.setItem('newProducts', JSON.stringify(newProducts));
+      newProducts = newProducts.map(product => new NewProduct(product));
+      console.log(newProducts);
+      // return newProducts;
+    } else {
+      throw new Error("Couldn't Get Products. Try again later");
+    }
+  } catch (error) {
+    // try rendering the error message from here directly onto the products section.
+    // result.innerHTML = `<div class="alert alert-danger">Can't Fetch Data</div>`
+    console.error(error);
+    newProducts = [];
+  }
+}
+ 
+// fetctAllProducts().then(value => console.log(value));
+console.log(newProducts);
+console.log(products);
+
+// sessionStorage.removeItem('newProducts');

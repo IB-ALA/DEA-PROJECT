@@ -19,6 +19,9 @@ button {
   border: none;
   outline: none;
 }
+a {
+  text-decoration: none;
+}
 
 .header-background-color {
   background-color: white;

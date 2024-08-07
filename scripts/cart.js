@@ -19,7 +19,7 @@ class Cart {
   #loadFromStorage() {
     this.cartItems = JSON.parse(localStorage.getItem(`${this.#localStorageKey}`));
     if (!this.cartItems) {
-      cart = [];
+      this.cartItems = [];
     }
   }
 
@@ -72,12 +72,12 @@ class Cart {
     if (this.cartItems.length > 0) {
       this.cartItems.forEach(cartItem => {
         const product = getProduct(cartItem.productId);
-    
+        // console.log(product);
         cartBodyHTML += `
           <div class="cart-item js-cart-item" data-product-id="${cartItem.productId}">
           
             <div class="item-image">
-              <img src="${product.image}" alt="">
+              <img src="${product.getImage()}" alt="">
             </div>
     
             <div class="item-details">

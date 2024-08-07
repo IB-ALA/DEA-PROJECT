@@ -248,13 +248,13 @@ function renderOrderSummary() {
     orderItemsHtml += `
       <div class="cart-item-grid">
         <div class="item-image">
-          <img src="${product.image}" alt="Umbrella">
+          <img src="${product.getImage()}" alt="Umbrella">
         </div>
 
         <div class="order-item-details">
           <div class="left-side">
             <p class="item-name">${product.name}</p>
-            <p class="item-price">₵${formatCurrency(product.pricePesewas)}</p>
+            <p class="item-price">${product.getPrice()}</p>
           </div>
 
           <div class="right-side">
