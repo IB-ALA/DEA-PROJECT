@@ -70,107 +70,113 @@ class Cart {
   
     let cartBodyHTML = '';
     if (this.cartItems.length > 0) {
+      try {
 
-      for (const cartItem of this.cartItems) {
-        const product = await getProduct(cartItem.productId);
-        console.log({product});
-        cartBodyHTML += `
-          <div class="cart-item js-cart-item" data-product-id="${cartItem.productId}">
-          
-            <div class="item-image">
-              <img src="${product.getImage()}" alt="">
-            </div>
-    
-            <div class="item-details">
-              <div class="top">
-                <p>${product.name}</p>
-                <button title="Remove Item" class="js-remove-item-btn">
-                  <svg  class="js-remove-item-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                    <path  class="js-remove-item-btn" d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"></path>
-                  </svg>
-                </button>
+        for (const cartItem of this.cartItems) {
+          const product = await getProduct(cartItem.productId);
+          console.log({product});
+          cartBodyHTML += `
+            <div class="cart-item js-cart-item" data-product-id="${cartItem.productId}">
+            
+              <div class="item-image">
+                <img src="${product.getImage()}" alt="">
               </div>
-    
-              <div class="bottom">
-                <div class="quantity-section">
-                  <div class="item-quantity-container">
-                    <span class="quantity-text">quantity:</span>
-                    <span class="item-quantity-text js-item-quantity-text">${cartItem.quantity}</span>
-    
-                    <div class="quantity-editing-container remove js-quantity-editing-container">
-                      <input class="item-quantity-input js-item-quantity-input" type="number" min="1" max="999">
-    
-                      <button class="save-update-btn js-save-update-btn">
-                        <svg class="save-update-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                          <path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
-                        </svg>
-                      </button>
+      
+              <div class="item-details">
+                <div class="top">
+                  <p>${product.name}</p>
+                  <button title="Remove Item" class="js-remove-item-btn">
+                    <svg  class="js-remove-item-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                      <path  class="js-remove-item-btn" d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"></path>
+                    </svg>
+                  </button>
+                </div>
+      
+                <div class="bottom">
+                  <div class="quantity-section">
+                    <div class="item-quantity-container">
+                      <span class="quantity-text">quantity:</span>
+                      <span class="item-quantity-text js-item-quantity-text">${cartItem.quantity}</span>
+      
+                      <div class="quantity-editing-container remove js-quantity-editing-container">
+                        <input class="item-quantity-input js-item-quantity-input" type="number" min="1" max="999">
+      
+                        <button class="save-update-btn js-save-update-btn">
+                          <svg class="save-update-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                            <path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
+                    
+                    <p class="item-quantity-update js-item-quantity-update">update</p>
                   </div>
                   
-                  <p class="item-quantity-update js-item-quantity-update">update</p>
+                  <p class="item-total">
+                    ₵${formatCurrency(product.pricePesewas * cartItem.quantity)}
+                  </p>
                 </div>
-                
-                <p class="item-total">
-                  ₵${formatCurrency(product.pricePesewas * cartItem.quantity)}
-                </p>
               </div>
             </div>
-          </div>
-        `;
-      };
-
-      /*
-      this.cartItems.forEach(cartItem => {
-        const product = getProduct(cartItem.productId);
-        // console.log(product);
-        cartBodyHTML += `
-          <div class="cart-item js-cart-item" data-product-id="${cartItem.productId}">
-          
-            <div class="item-image">
-              <img src="${product.getImage()}" alt="">
-            </div>
-    
-            <div class="item-details">
-              <div class="top">
-                <p>${product.name}</p>
-                <button title="Remove Item" class="js-remove-item-btn">
-                  <svg  class="js-remove-item-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                    <path  class="js-remove-item-btn" d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"></path>
-                  </svg>
-                </button>
+          `;
+        };
+  
+        /*
+        this.cartItems.forEach(cartItem => {
+          const product = getProduct(cartItem.productId);
+          // console.log(product);
+          cartBodyHTML += `
+            <div class="cart-item js-cart-item" data-product-id="${cartItem.productId}">
+            
+              <div class="item-image">
+                <img src="${product.getImage()}" alt="">
               </div>
-    
-              <div class="bottom">
-                <div class="quantity-section">
-                  <div class="item-quantity-container">
-                    <span class="quantity-text">quantity:</span>
-                    <span class="item-quantity-text js-item-quantity-text">${cartItem.quantity}</span>
-    
-                    <div class="quantity-editing-container remove js-quantity-editing-container">
-                      <input class="item-quantity-input js-item-quantity-input" type="number" min="1" max="999">
-    
-                      <button class="save-update-btn js-save-update-btn">
-                        <svg class="save-update-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                          <path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
-                        </svg>
-                      </button>
+      
+              <div class="item-details">
+                <div class="top">
+                  <p>${product.name}</p>
+                  <button title="Remove Item" class="js-remove-item-btn">
+                    <svg  class="js-remove-item-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                      <path  class="js-remove-item-btn" d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"></path>
+                    </svg>
+                  </button>
+                </div>
+      
+                <div class="bottom">
+                  <div class="quantity-section">
+                    <div class="item-quantity-container">
+                      <span class="quantity-text">quantity:</span>
+                      <span class="item-quantity-text js-item-quantity-text">${cartItem.quantity}</span>
+      
+                      <div class="quantity-editing-container remove js-quantity-editing-container">
+                        <input class="item-quantity-input js-item-quantity-input" type="number" min="1" max="999">
+      
+                        <button class="save-update-btn js-save-update-btn">
+                          <svg class="save-update-btn" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                            <path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
+                    
+                    <p class="item-quantity-update js-item-quantity-update">update</p>
                   </div>
                   
-                  <p class="item-quantity-update js-item-quantity-update">update</p>
+                  <p class="item-total">
+                    ₵${formatCurrency(product.pricePesewas * cartItem.quantity)}
+                  </p>
                 </div>
-                
-                <p class="item-total">
-                  ₵${formatCurrency(product.pricePesewas * cartItem.quantity)}
-                </p>
               </div>
             </div>
-          </div>
+          `;
+        });
+        */
+  
+      } catch (error) {
+        cartBodyHTML = `
+          <p class="reference">An error occured. please try reloading the page...</p>
         `;
-      });
-      */
-
+      }
     } else {
       cartBodyHTML = `
         <div class="reference">

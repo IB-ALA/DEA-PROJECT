@@ -420,6 +420,21 @@ form .row .col label,
   }
 }
 
+.order-summary-error-text {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  line-height: 19px;
+  font-size: 15px;
+  font-weight: bold;
+  word-spacing: .1rem;
+  text-transform: capitalize;
+  color: hsl(0, 0%, 40%);
+}
+
 .order-details-container {
   /* border: 2px solid red; */
   border-bottom: 2px solid hsl(0, 0%, 94%);

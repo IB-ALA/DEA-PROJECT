@@ -240,11 +240,11 @@ async function renderOrderSummary() {
   const orderSummaryContainer = document.querySelector('.js-order-summary-container');
   const discount = 0;
   const additionalCost = 0;
-  const cartTotalAmount = await cart.calculateCartTotalAmount();
   // ${formatCurrency(await cart.calculateCartTotalAmount())}
   // this worked too
 
   let orderItemsHtml = '';
+  let orderSummaryBodyHtml = '';
 
   /*
   cart.cartItems.forEach(async orderItem => {
@@ -273,64 +273,77 @@ async function renderOrderSummary() {
   });
   */
 
+  try {
+    const cartTotalAmount = await cart.calculateCartTotalAmount();
+      
+    for (const orderItem of cart.cartItems) {
+      const product = await getProduct(orderItem.productId);
 
-  for (const orderItem of cart.cartItems) {
-    const product = await getProduct(orderItem.productId);
+      orderItemsHtml += `
+        <div class="cart-item-grid">
+          <div class="item-image">
+            <img src="${product.getImage()}" alt="Umbrella">
+          </div>
 
-    orderItemsHtml += `
-    <div class="cart-item-grid">
-      <div class="item-image">
-        <img src="${product.getImage()}" alt="Umbrella">
+          <div class="order-item-details">
+            <div class="left-side">
+              <p class="item-name">${product.name}</p>
+              <p class="item-price">${product.getPrice()}</p>
+            </div>
+
+            <div class="right-side">
+              <p class="item-quantity">X${orderItem.quantity}</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+    }
+
+
+    orderSummaryBodyHtml = `
+      <div class="order-details-container js-order-details-container">
+        ${orderItemsHtml}
       </div>
 
-      <div class="order-item-details">
-        <div class="left-side">
-          <p class="item-name">${product.name}</p>
-          <p class="item-price">${product.getPrice()}</p>
+      <div class="order-billings-container">
+        <div class="cart-total-container">
+          <p>order total:</p>
+          <p>₵${formatCurrency(cartTotalAmount)}</p>
         </div>
 
-        <div class="right-side">
-          <p class="item-quantity">X${orderItem.quantity}</p>
+        <div class="discount-amount-container">
+          <p>discount <span>${discount}%</span>:</p>
+          <p>-₵${formatCurrency(cartTotalAmount * discount)}</p>
+        </div>
+
+        <div class="additonal-cost-container">
+          <p>additional cost:</p>
+          <p>₵${formatCurrency(additionalCost)}</p>
         </div>
       </div>
-    </div>
+
+      <div class="divider"></div>
+
+      <div class="order-total">
+        <h3>total:</h3>
+        <p>₵${formatCurrency(cartTotalAmount + (cartTotalAmount * discount) + additionalCost)}</p>
+      </div>
     `;
 
+    // const orderDetailsContainer = document.querySelector('.js-order-details-container');
+    // showScrollBar(orderDetailsContainer);
+
+  } catch (error) {
+    orderSummaryBodyHtml = `
+      <p class="order-summary-error-text">An error occured. reloaded page...</p>
+    `; 
+    console.log(error);
   }
 
 
-  let orderSummaryBodyHtml = `
-    <div class="order-details-container js-order-details-container">
-      ${orderItemsHtml}
-    </div>
-
-    <div class="order-billings-container">
-      <div class="cart-total-container">
-        <p>order total:</p>
-        <p>₵${formatCurrency(cartTotalAmount)}</p>
-      </div>
-
-      <div class="discount-amount-container">
-        <p>discount <span>${discount}%</span>:</p>
-        <p>-₵${formatCurrency(cartTotalAmount * discount)}</p>
-      </div>
-
-      <div class="additonal-cost-container">
-        <p>additional cost:</p>
-        <p>₵${formatCurrency(additionalCost)}</p>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="order-total">
-      <h3>total:</h3>
-      <p>₵${formatCurrency(cartTotalAmount + (cartTotalAmount * discount) + additionalCost)}</p>
-    </div>
-  `;
-
   orderSummaryContainer.innerHTML = orderSummaryBodyHtml;
 
-  const orderDetailsContainer = document.querySelector('.js-order-details-container');
-  showScrollBar(orderDetailsContainer);
+  // const orderDetailsContainer = document.querySelector('.js-order-details-container');
+  // showScrollBar(orderDetailsContainer);
 }

@@ -32,6 +32,10 @@ cart.updateCartQuantityElem(cartQuantityElem);
   let products = await fetctAllProducts();
   console.log({products});
   if (products.length == 0) {
+    productsGrid.innerHTML = `
+      <p class="no-products-text">Products unavailable. refresh page agiain later...</p>
+    `;
+    productsGrid.classList.replace('products-grid', 'no-products-container');
     // give the refresh notice
   } else {
     products = products.map(product => new DbProducts(product));
@@ -80,6 +84,9 @@ function renderProducts(products) {
     `;
   });
 
+  if (productsGrid.classList.contains('no-products-container')) {
+    productsGrid.classList.replace('no-products-container', 'products-grid');
+  }
   productsGrid.innerHTML = productsHTML;
 
   const productContainers = document.querySelectorAll('.product');

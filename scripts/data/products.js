@@ -216,7 +216,7 @@ export async function fetctAllProducts() {
     } catch (error) {
       // try rendering the error message from here directly onto the products section.
       // result.innerHTML = `<div class="alert alert-danger">Can't Fetch Data</div>`
-      console.error(error);
+      // console.error(error);
       return [];
     }
 
