@@ -1,8 +1,9 @@
-import { showScrollBar } from './user-interface.js';
+import { showScrollBar, showMenu } from './user-interface.js';
 import { cart } from './cart.js';
 import { getProduct } from './data/products.js';
 import formatCurrency from './money.js';
 
+showMenu();
 
 const paymentDetailsFormElem = document.getElementById('payment-details-form');
 const paymentFormInputs = document.querySelectorAll('.payment-details-form-input');
@@ -235,15 +236,20 @@ retryPaymentBtn.addEventListener('click', () => {
 renderOrderSummary();
 
 
-function renderOrderSummary() {
+async function renderOrderSummary() {
   const orderSummaryContainer = document.querySelector('.js-order-summary-container');
   const discount = 0;
   const additionalCost = 0;
-
+  const cartTotalAmount = await cart.calculateCartTotalAmount();
+  // ${formatCurrency(await cart.calculateCartTotalAmount())}
+  // this worked too
 
   let orderItemsHtml = '';
-  cart.cartItems.forEach(orderItem => {
-    const product = getProduct(orderItem.productId);
+
+  /*
+  cart.cartItems.forEach(async orderItem => {
+    const product = await getProduct(orderItem.productId);
+    console.log(product);
 
     orderItemsHtml += `
       <div class="cart-item-grid">
@@ -263,7 +269,35 @@ function renderOrderSummary() {
         </div>
       </div>
     `;
+    // console.log(orderItemsHtml);
   });
+  */
+
+
+  for (const orderItem of cart.cartItems) {
+    const product = await getProduct(orderItem.productId);
+
+    orderItemsHtml += `
+    <div class="cart-item-grid">
+      <div class="item-image">
+        <img src="${product.getImage()}" alt="Umbrella">
+      </div>
+
+      <div class="order-item-details">
+        <div class="left-side">
+          <p class="item-name">${product.name}</p>
+          <p class="item-price">${product.getPrice()}</p>
+        </div>
+
+        <div class="right-side">
+          <p class="item-quantity">X${orderItem.quantity}</p>
+        </div>
+      </div>
+    </div>
+    `;
+
+  }
+
 
   let orderSummaryBodyHtml = `
     <div class="order-details-container js-order-details-container">
@@ -273,12 +307,12 @@ function renderOrderSummary() {
     <div class="order-billings-container">
       <div class="cart-total-container">
         <p>order total:</p>
-        <p>₵${formatCurrency(cart.calculateCartTotalAmount())}</p>
+        <p>₵${formatCurrency(cartTotalAmount)}</p>
       </div>
 
       <div class="discount-amount-container">
         <p>discount <span>${discount}%</span>:</p>
-        <p>-₵${formatCurrency(cart.calculateCartTotalAmount() * discount)}</p>
+        <p>-₵${formatCurrency(cartTotalAmount * discount)}</p>
       </div>
 
       <div class="additonal-cost-container">
@@ -291,7 +325,7 @@ function renderOrderSummary() {
 
     <div class="order-total">
       <h3>total:</h3>
-      <p>₵${formatCurrency(cart.calculateCartTotalAmount() + (cart.calculateCartTotalAmount() * discount) + additionalCost)}</p>
+      <p>₵${formatCurrency(cartTotalAmount + (cartTotalAmount * discount) + additionalCost)}</p>
     </div>
   `;
 

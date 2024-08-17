@@ -24,7 +24,7 @@ class Product {
   }
 }
 
-class NewProduct {
+export class NewProduct {
   id;
   name;
   image;
@@ -98,21 +98,48 @@ export const products = [
   },
 ].map(product => new Product(product));
 
+/*
+async function getProductProducts () {
+  let getProductProducts = await fetctAllProducts();
+  // console.log({getProductProducts});
+  if (getProductProducts.length !== 0) {
+    getProductProducts = getProductProducts.map(product => new NewProduct(product));
+    return getProductProducts;
+  } else {
+    // means there was an error
 
-export function getProduct(productId) {
+  }
+  // getProductProducts = getProductProducts.map(product => new NewProduct(product));
+  // return getProductProducts;
+}
+*/
+
+// console.log(getProductProducts());
+
+
+export async function getProduct(productId) {
   let matchingProduct;
-  // Alternate between newProducts and products.
-  newProducts.forEach(product => {
-    if (productId == product.id) {
-      matchingProduct = product
+  let products = await fetctAllProducts();
+  if (products.length !== 0) {
+    products = products.map(product => new NewProduct(product));
+    products.forEach(product => {
+      if (productId == product.id) {
+        matchingProduct = product;
+      }
+    });
+  
+    if (matchingProduct) {
+      return matchingProduct; 
     }
-  });
-
-  if (matchingProduct) {
-    return matchingProduct; 
+  } else {
+    // means there was an error
   }
 }
 
+// getProduct(1).then(value => console.log(value));
+
+
+/*
 export let newProducts = JSON.parse(sessionStorage.getItem('newProducts'));
 
 if (!newProducts) {
@@ -123,7 +150,6 @@ if (!newProducts) {
 } else {
   newProducts = newProducts.map(product => new NewProduct(product))
 }
-
 
 async function fetctAllProducts() {
   // let newProducts = [];
@@ -146,9 +172,61 @@ async function fetctAllProducts() {
     newProducts = [];
   }
 }
+
+*/
+
+/*
+(async () => {
+  const cachedProducts = JSON.parse(sessionStorage.getItem('newProducts'));
+  if (!cachedProducts) {
+    export const newProducts = await fetctAllProducts();
+  } else {
+    
+  }
+}) ();
+*/
+
+
+
+export async function fetctAllProducts() {
+  let dbProducts;
+  const cachedProducts = JSON.parse(sessionStorage.getItem('products'));
+  if (cachedProducts) {
+    console.log({cachedProducts});
+    return cachedProducts;
+  }
+  
+  else {
+  
+    try {
+      const productsFetch = await fetch('http://localhost:5000/dea/products');
+      const response = await productsFetch.json();
+      if (response.Success) {
+        dbProducts = response.data;
+        sessionStorage.setItem('products', JSON.stringify(dbProducts));
+        console.log({dbProducts});
+        return dbProducts;
+        // dbProducts = dbProducts.map(product => new NewProduct(product));
+        console.log(dbProducts);
+        // return newProducts;
+      } else {
+        // throw new Error("Couldn't Get Products. Try again later");
+        return [];
+      }
+    } catch (error) {
+      // try rendering the error message from here directly onto the products section.
+      // result.innerHTML = `<div class="alert alert-danger">Can't Fetch Data</div>`
+      console.error(error);
+      return [];
+    }
+
+  }
+
+}
+
  
 // fetctAllProducts().then(value => console.log(value));
-console.log(newProducts);
-console.log(products);
+// console.log(newProducts);
+// console.log(products);
 
-// sessionStorage.removeItem('newProducts');
+// sessionStorage.removeItem('products');

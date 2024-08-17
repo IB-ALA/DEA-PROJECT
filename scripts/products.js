@@ -1,6 +1,7 @@
 // We alternate between the 2 lines
 // import { products } from './data/products.js';
-import { newProducts as products } from './data/products.js';
+// import { newProducts as products, fetctAllProducts} from './data/products.js';
+import { NewProduct as DbProducts, fetctAllProducts } from './data/products.js';
 import { showCart, showScrollBar, showMenu, trackOrderFunctions } from './user-interface.js';
 import { cart } from './cart.js';
 
@@ -26,7 +27,17 @@ showScrollBar(trackOrderBody);
 
 cart.updateCartQuantityElem(cartQuantityElem);
 
-renderProducts();
+
+// (async () => {
+  let products = await fetctAllProducts();
+  console.log({products});
+  if (products.length == 0) {
+    // give the refresh notice
+  } else {
+    products = products.map(product => new DbProducts(product));
+    renderProducts(products);
+  }
+// }) ();
 
 // window.addEventListener('scroll', giveProductsHeaderShadow);
 
@@ -47,7 +58,7 @@ cartItemsLink.addEventListener('click', () => {
 trackOrderFunctions();
 
 
-function renderProducts() {
+function renderProducts(products) {
   let productsHTML = '';
 
   products.forEach(product => {
