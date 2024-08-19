@@ -5,7 +5,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { addNewsletterSubscriber, getAllProducts } from './database-queries.js';
+import { addNewsletterSubscriber, getAllProducts, createOrder } from './database-queries.js';
 
 
 // mysql2/promise style.
@@ -38,6 +38,10 @@ app.get('/dea/products', async (req, res) => {
 
 app.post('/dea/newsletter', (req, res) => {
   addNewsletterSubscriber(req, res);
+});
+
+app.post('/dea/orders', (req, res) => {
+  createOrder(req, res);
 });
 
 

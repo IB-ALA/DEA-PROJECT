@@ -1,6 +1,8 @@
 // const mysql = require('mysql2');
+import { createOrderId } from './server-utils.mjs';
 
 import mysql from 'mysql2';
+
 
 function createDbConnection() {
   return mysql.createConnection({
@@ -115,5 +117,75 @@ export function addNewsletterSubscriber(req, res) {
   // */
 }
 
+
+export function createOrder(req, res) {
+  const connection = createDbConnection();
+  const { deliveryDetails, orderDetails } = req.body;
+  const orderId = createOrderId();
+  // const email = req.body.email;
+  console.log(deliveryDetails, orderDetails);
+  res.status(200).json({ Success: true, data: { orderId }});
+
+  /*
+  try {
+    connection.connect((err) => {
+      if (err) {
+        console.log('Error connecting to database:', err);
+        return res
+        .status(500)
+        .json({ Success: false, data: err, from: ".connect" });
+      }
+      console.log('Connected to database!');
+      
+
+      // check if subscriber exists
+      const query = `
+        SELECT EXISTS (
+        SELECT 1 FROM newsletter_subscribers
+        WHERE email = ?
+        )
+        AS Result;
+      `;
+      connection.query(query, [email], (err, response, fields) => {
+        if (err) {
+          console.error('Error executing query:', err);
+          return res
+          .status(500)
+          .json({ Success: false, data: err, from: ".query"});
+        } 
+        else if (response[0].Result === 1) {
+          return res
+          .status(200)
+          .json({ Success: true,  data: 'Exists'});
+        } 
+        // if it doesn't, we add it
+        else if (response[0].Result === 0) {
+          const query = `
+            INSERT INTO newsletter_subscribers
+            VALUES (?)
+          `;
+          connection.query(query, [email], (err, response, fields) => {
+            if (err) {
+              console.error('Error executing query:', err);
+              return res
+              .status(500)
+              .json({ Success: false, data: err, from: ".query"});
+            }
+            return res
+            .status(200)
+            .json({ Success: true,  data: 'Added' });
+          });
+        }
+      });
+    });
+  } catch (error) {
+    return res
+    .status(500)
+    .json({ Success: false, data: error, from: ".connect" });
+  }
+  */
+}
+// FINISH THE CREATEORDER FUNCTION.
+// CREATE THE DATABASE TABLES FIRST.
 
 // module.exports = { getAllProducts };

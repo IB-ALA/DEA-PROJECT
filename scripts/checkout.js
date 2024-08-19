@@ -24,15 +24,17 @@ const retryPaymentBtn = document.getElementById('retry-payment-btn');
 const orderTotalQuantityElem = document.querySelector('.js-order-total-quantity');
 orderTotalQuantityElem.innerHTML = `${cart.findCartTotal()} items`;
 
+let allowPayment = true;
+
 proceedToPayBtn.addEventListener('click', () => {
   checkPaymentDetailsInputs();
   // const storageDeliveryDetails = JSON.parse(localStorage.getItem('deliveryDetails'));
 
-  if (!paymentFormInputs[0].classList.contains('error') && !paymentFormInputs[1].classList.contains('error') && !paymentFormInputs[2].classList.contains('error') && !paymentFormInputs[3].classList.contains('error') && !paymentFormInputs[4].classList.contains('error')) {
+  if (!paymentFormInputs[0].classList.contains('error') && !paymentFormInputs[1].classList.contains('error') && !paymentFormInputs[2].classList.contains('error') && !paymentFormInputs[3].classList.contains('error') && !paymentFormInputs[4].classList.contains('error') && allowPayment) {
     console.log('ALL IS WELL');
-    const paymentDetailsFormData = new FormData(paymentDetailsFormElem);
-    const deliveryDetails = Object.fromEntries(paymentDetailsFormData.entries());
-    console.log(deliveryDetails);
+    // const paymentDetailsFormData = new FormData(paymentDetailsFormElem);
+    // const deliveryDetails = Object.fromEntries(paymentDetailsFormData.entries());
+    // console.log(deliveryDetails);
     // localStorage.setItem('deliveryDetails', deliveryDetails);
     // localStorage.removeItem('deliveryDetails');
     switch (true) {
@@ -204,18 +206,51 @@ momoPaymentForm.addEventListener('submit', (e) => {
   // }
 });
 
-paymentApprovedBtn.addEventListener('click', () => {
+paymentApprovedBtn.addEventListener('click', async () => {
   paymentApprovalContainer.querySelector('.js-loading').classList.remove('remove');
   // throw new Error('NOT PAID YET');
   try {
-    // check if payment was successful
     paymentApprovalContainer.querySelector('.js-loading').classList.remove('remove');
+
+    // check if payment was successful
+    // should be async as we wait for response
+    // if paid, make a post request to the server 
+    // to add order to server and return order id
+    // then show the success message.
+    // request is down here
+
+    const paymentDetailsFormData = new FormData(paymentDetailsFormElem);
+    const deliveryDetails = Object.fromEntries(paymentDetailsFormData.entries());
+    const orderDetails = cart.cartItems;
+
+    // /*
+    const response = await fetch('http://localhost:5000/dea/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        deliveryDetails,
+        orderDetails
+      })
+    });
+    const data = await response.json();
+    const orderId = data.data;
+    console.log(orderId);
+    // */
+
+    console.log(deliveryDetails, orderDetails);
+
+    
+
+
     // throw new Error('NOT PAID YET');
-    setTimeout(() => {
+    // setTimeout(() => {
       paymentApprovalContainer.querySelector('.js-loading').classList.add('remove');
       paymentApprovalContainer.classList.add('remove');
       paymentSuccessfulElem.classList.remove('remove');
-    }, 2000);
+    // }, 2000);
 
     // paymentApprovalContainer.classList.add('remove');
     // paymentSuccessfulElem.classList.remove('remove');
@@ -237,6 +272,7 @@ renderOrderSummary();
 
 
 async function renderOrderSummary() {
+  allowPayment = true;
   const orderSummaryContainer = document.querySelector('.js-order-summary-container');
   const discount = 0;
   const additionalCost = 0;
@@ -338,7 +374,8 @@ async function renderOrderSummary() {
     orderSummaryBodyHtml = `
       <p class="order-summary-error-text">An error occured. reloaded page...</p>
     `; 
-    console.log(error);
+    allowPayment = false;
+    // console.log(error);
   }
 
 
