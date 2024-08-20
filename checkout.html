@@ -56,35 +56,35 @@
           <form id="payment-details-form">
             <div class="row">
               <div class="col">
-                <input name="FirstName" class="payment-details-form-input" placeholder="" type="text" id="first-name" autofocus>
+                <input name="firstName" class="payment-details-form-input" placeholder="" type="text" id="first-name" autofocus>
                 <label for="first-name" class="alert required">first name</label>
               </div>
               <div class="col">
-                <input name="LastName" class="payment-details-form-input" placeholder="" type="text" id="last-name">
-                <label for="last=name" class="alert required">last name</label>
+                <input name="lastName" class="payment-details-form-input" placeholder="" type="text" id="last-name">
+                <label for="last-name" class="alert required">last name</label>
               </div>
             </div>
 
             <div class="row">
               <div class="col">
-                <input name="PhoneNumber" class="payment-details-form-input" placeholder="" type="tel" id="phone-number" inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
+                <input name="phoneNumber" class="payment-details-form-input" placeholder="" type="tel" id="phone-number" inputmode="tel" maxlength="10" minlength="10" pattern="[0-9]*">
                 <label for="phone-number" class="alert required">phone number</label>
               </div>
               <div class="col">
-                <input name="Email" class="payment-details-form-input" placeholder="" type="email" id="email">
+                <input name="email" class="payment-details-form-input" placeholder="" type="email" id="email">
                 <label for="email" class="alert required">email</label>
               </div>
             </div>
 
             <div class="row">
               <div class="col">
-                <select name="Country" id="">
+                <select name="country" id="">
                   <option value="Ghana" selected>ghana</option>
                 </select>
                 <!-- <label for="" class="alert required">select your country</label> -->
               </div>
               <div class="col">
-                <select name="Region" id="">
+                <select name="region" id="">
                   <option value="Greater Accra Region" selected>greater accra region</option>
                   <option value="Ashanti Region">ashanti region</option>
                   <option value="Central Region">central region</option>
@@ -97,12 +97,12 @@
 
             <div class="row">
               <div class="col">
-                <input name="Address" class="payment-details-form-input" placeholder="" type="text" id="address">
+                <input name="address" class="payment-details-form-input" placeholder="" type="text" id="address">
                 <label for="address" class="alert required">address/closest landmark</label>
               </div>
               <div class="col">
-                <input name="ZIP" class="" placeholder="" type="text" id="ZIP">
-                <label for="ZIP" class="alert">ZIP code</label>
+                <input name="zip" class="" placeholder="" type="text" id="zip">
+                <label for="zip" class="alert">ZIP code</label>
               </div>
             </div>
           </form>
@@ -328,7 +328,7 @@
         <div class="payment-msg remove" id="payment-successful">
           <p>ORDER PLACED SUCCESSFULLY.</p>
           <img src="images/icons/checkmark.png" alt="checkmark">
-          <p>OrderID: <span>jjtf4tf45vu7i2v</span></p>
+          <p>OrderID: <span class="js-order-id">jjtf4tf45vu7i2v</span></p>
           <p>copy and save OrderID to track your order anytime.</p>
 
           <a href="products.html">

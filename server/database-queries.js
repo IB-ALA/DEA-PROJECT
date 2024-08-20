@@ -120,13 +120,12 @@ export function addNewsletterSubscriber(req, res) {
 
 export function createOrder(req, res) {
   const connection = createDbConnection();
-  const { deliveryDetails, orderDetails } = req.body;
+  const { deliveryDetails, orderDetails, orderQuantity, orderTotal, paymentDetailsId } = req.body;
+  const { firstName, lastName, phoneNumber, email, country, region, address, zip} = deliveryDetails;
   const orderId = createOrderId();
-  // const email = req.body.email;
-  console.log(deliveryDetails, orderDetails);
-  res.status(200).json({ Success: true, data: { orderId }});
 
-  /*
+  console.log({deliveryDetails}, {orderDetails}, {orderTotal}, {orderQuantity}, {paymentDetailsId}, {orderId});
+
   try {
     connection.connect((err) => {
       if (err) {
@@ -136,56 +135,126 @@ export function createOrder(req, res) {
         .json({ Success: false, data: err, from: ".connect" });
       }
       console.log('Connected to database!');
-      
-
-      // check if subscriber exists
+    
+      // insert order details without the deliver_id
       const query = `
-        SELECT EXISTS (
-        SELECT 1 FROM newsletter_subscribers
-        WHERE email = ?
-        )
-        AS Result;
+        INSERT INTO orders (order_id, total_amount, total_quantity, email, payment_id)
+        VALUES (?, ?, ?, ?, ?)
       `;
-      connection.query(query, [email], (err, response, fields) => {
+      connection.query(query, [orderId, orderTotal, orderQuantity, email, paymentDetailsId], (err, response, fields) => {
         if (err) {
           console.error('Error executing query:', err);
           return res
           .status(500)
           .json({ Success: false, data: err, from: ".query"});
-        } 
-        else if (response[0].Result === 1) {
-          return res
-          .status(200)
-          .json({ Success: true,  data: 'Exists'});
-        } 
-        // if it doesn't, we add it
-        else if (response[0].Result === 0) {
+        }
+
+        // insert order items
+        orderDetails.forEach(orderItem => {
+          const { productId, quantity } = orderItem;
+
           const query = `
-            INSERT INTO newsletter_subscribers
-            VALUES (?)
+            INSERT INTO order_items
+            VALUES (?, ?, ?)
           `;
-          connection.query(query, [email], (err, response, fields) => {
+          connection.query(query, [orderId, Number(productId), quantity ], (err, response, fields) => {
             if (err) {
               console.error('Error executing query:', err);
               return res
               .status(500)
               .json({ Success: false, data: err, from: ".query"});
             }
-            return res
-            .status(200)
-            .json({ Success: true,  data: 'Added' });
+
+            /*
+            const query = `
+              INSERT INTO delivery_details (order_id, first_name, last_name, email, ZIP, country, region, delivery_address, phone_number)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `;
+            connection.query(query, [orderId, firstName, lastName, email, zip, country, region, address, phoneNumber], (err, response, fields) => {
+              if (err) {
+                console.error('Error executing query:', err);
+                return res
+                .status(500)
+                .json({ Success: false, data: err, from: ".query"});
+              }
+
+              const query = `
+                UPDATE orders
+                SET delivery_id = (
+                  SELECT delivery_id FROM delivery_details
+                  WHERE delivery_details.order_id = ?
+                )
+                WHERE orders.order_id = ?
+              `;
+
+              connection.query(query, [orderId, orderId], (err, response, fields) => {
+                if (err) {
+                  console.error('Error executing query:', err);
+                  return res
+                  .status(500)
+                  .json({ Success: false, data: err, from: ".query"});
+                }
+
+                console.log('All data inserted successfully. Order-id: ', orderId);
+                return res
+                .status(200)
+                .json({ Success: true, data: orderId });
+              });
+
+            });
+            */
           });
-        }
+        });
+
+        // insert update delivery_id for the order
+        (() => {
+          const query = `
+            INSERT INTO delivery_details (order_id, first_name, last_name, email, ZIP, country, region, delivery_address, phone_number)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          `;
+          connection.query(query, [orderId, firstName, lastName, email, zip, country, region, address, phoneNumber], (err, response, fields) => {
+            if (err) {
+              console.error('Error executing query:', err);
+              return res
+              .status(500)
+              .json({ Success: false, data: err, from: ".query"});
+            }
+
+            const query = `
+              UPDATE orders
+              SET delivery_id = (
+                SELECT delivery_id FROM delivery_details
+                WHERE delivery_details.order_id = ?
+              )
+              WHERE orders.order_id = ?
+            `;
+            connection.query(query, [orderId, orderId], (err, response, fields) => {
+              if (err) {
+                console.error('Error executing query:', err);
+                return res
+                .status(500)
+                .json({ Success: false, data: err, from: ".query"});
+              }
+
+              console.log('All data inserted successfully. Order-id: ', orderId);
+              return res
+              .status(200)
+              .json({ Success: true, data: orderId });
+            });
+
+          });
+        }) ();
       });
+
+
     });
   } catch (error) {
     return res
     .status(500)
     .json({ Success: false, data: error, from: ".connect" });
   }
-  */
 }
 // FINISH THE CREATEORDER FUNCTION.
-// CREATE THE DATABASE TABLES FIRST.
+// TRY HANLING SOME OF THE ERRORS
 
 // module.exports = { getAllProducts };

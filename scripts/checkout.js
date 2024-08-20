@@ -222,6 +222,9 @@ paymentApprovedBtn.addEventListener('click', async () => {
     const paymentDetailsFormData = new FormData(paymentDetailsFormElem);
     const deliveryDetails = Object.fromEntries(paymentDetailsFormData.entries());
     const orderDetails = cart.cartItems;
+    const orderQuantity = cart.findCartTotal();
+    const paymentDetailsId = 'just-a-trial-id';
+    const orderTotal = await cart.calculateCartTotalAmount();
 
     // /*
     const response = await fetch('http://localhost:5000/dea/orders', {
@@ -232,29 +235,31 @@ paymentApprovedBtn.addEventListener('click', async () => {
       },
       body: JSON.stringify({
         deliveryDetails,
-        orderDetails
+        orderDetails,
+        orderQuantity,
+        orderTotal, 
+        paymentDetailsId
       })
     });
     const data = await response.json();
-    const orderId = data.data;
-    console.log(orderId);
-    // */
 
-    console.log(deliveryDetails, orderDetails);
+    if (data.Success) {
+      const orderId = data.data;
 
-    
-
-
-    // throw new Error('NOT PAID YET');
-    // setTimeout(() => {
+      console.log(deliveryDetails, orderDetails);
+  
       paymentApprovalContainer.querySelector('.js-loading').classList.add('remove');
       paymentApprovalContainer.classList.add('remove');
       paymentSuccessfulElem.classList.remove('remove');
-    // }, 2000);
-
-    // paymentApprovalContainer.classList.add('remove');
-    // paymentSuccessfulElem.classList.remove('remove');
-    // paymentApprovalContainer.querySelector('.js-loading').classList.add('remove');
+      paymentSuccessfulElem.querySelector('.js-order-id').innerText = orderId;
+  
+      // reset cart
+      cart.cartItems = [];
+      cart.saveCart();
+    } 
+    else {
+      throw new Error('SERVER ERROR');
+    }
   } catch (error) {
     paymentApprovalContainer.querySelector('.js-loading').classList.add('remove');
     paymentApprovalContainer.classList.add('remove');
@@ -372,7 +377,7 @@ async function renderOrderSummary() {
 
   } catch (error) {
     orderSummaryBodyHtml = `
-      <p class="order-summary-error-text">An error occured. reloaded page...</p>
+      <p class="order-summary-error-text">An error occured. reload page...</p>
     `; 
     allowPayment = false;
     // console.log(error);
