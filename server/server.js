@@ -5,7 +5,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { getAllProducts, addNewsletterSubscriber, createOrder } from './database-queries.js';
+import { getAllProducts, addNewsletterSubscriber, createOrder, getOrder } from './database-queries.js';
 
 
 const app = express();
@@ -24,6 +24,9 @@ app.post('/dea/newsletter', (req, res) => {
 
 app.post('/dea/orders', (req, res) => {
   createOrder(req, res);
+});
+app.get('/dea/orders', (req, res) => {
+  getOrder(req, res);
 });
 
 

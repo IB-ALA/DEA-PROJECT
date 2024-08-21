@@ -30,7 +30,7 @@ export async function getAllProducts(res) {
     } catch (error) {
       return res
       .status(500)
-      .json({ Success: false, data: error, from: ".query" });
+      .json({ Success: false, data: error, from: ".execute" });
     }
   } catch (error) {
     console.log('Error connecting to database:', error);
@@ -75,7 +75,7 @@ export async function addNewsletterSubscriber(req, res) {
     } catch (error) {
       return res
       .status(500)
-      .json({ Success: false, data: error, from: ".connect" });
+      .json({ Success: false, data: error, from: ".execute" });
     }
   } catch (error) {
     console.log('Error connecting to database:', error);
@@ -84,7 +84,6 @@ export async function addNewsletterSubscriber(req, res) {
     .json({ Success: false, data: error, form: ".connect" });
   }
 }
-
 
 export async function createOrder(req, res) {
   try {
@@ -148,6 +147,125 @@ export async function createOrder(req, res) {
     .json({ Success: false, data: error, from: ".connect" });
   }
 }
+
+export async function getOrder(req, res) {
+  try {
+    const connection = await createDbConnection();
+    // const orderId = 'e232288417';
+    // const email = 'iishaqyusif@gmail.com';
+    const { orderId, email } = req.query
+    console.log({orderId}, {email});
+
+    let getOrderDetailsQuery;
+    let getOrderProductsQuery;
+    let queryParam;
+
+    if (orderId) {
+      getOrderDetailsQuery = `
+        SELECT 
+        orders.order_id AS orderId, 
+        orders.order_date AS orderDate, 
+        orders.order_status AS orderStatus, 
+        orders.total_amount AS orderTotal 
+        FROM orders
+        WHERE orders.order_id = ?
+        ORDER BY orders.order_date;
+      `;
+
+      getOrderProductsQuery = `
+        SELECT 
+        order_items.order_id AS orderId, 
+        order_items.product_id AS productId, 
+        order_items.quantity AS quantity
+        FROM order_items 
+        WHERE order_items.order_id = ?
+      `;
+
+      queryParam = orderId;
+      console.log('Using orderId');
+    } 
+    else if (email) {
+      getOrderDetailsQuery = `
+        SELECT
+        orders.order_id AS orderId, 
+        orders.order_date AS orderDate, 
+        orders.order_status AS orderStatus, 
+        orders.total_amount AS orderTotal 
+        FROM orders
+        WHERE orders.order_id IN (
+          SELECT orders.order_id 
+          FROM orders
+          WHERE orders.email = ? AND orders.order_status <> 'Pending'
+        )
+        ORDER BY orders.order_date
+      `;
+
+      getOrderProductsQuery = `
+        SELECT 
+        order_items.order_id AS orderId, 
+        order_items.product_id AS productId, 
+        order_items.quantity AS quantity
+        FROM order_items
+        WHERE order_items.order_id IN (
+          SELECT orders.order_id 
+          FROM orders
+          WHERE orders.email = ? AND orders.order_status <> 'Pending'
+        )
+      `;
+      
+      queryParam = email;
+      console.log('Using email');
+    }
+
+    try {
+      const [orderDetails, fields1] = await connection.execute(getOrderDetailsQuery, [queryParam]);
+      const [orderProducts, fields2] = await connection.execute(getOrderProductsQuery, [queryParam]);
+
+      const orders = [];
+      orderDetails.forEach(({ orderId, orderDate, orderStatus, orderTotal })  => {
+        const orderItems = [];
+        
+        orderProducts.forEach((orderItem) => {
+          if (orderItem.orderId === orderId) {
+            const { productId, quantity } = orderItem;
+            orderItems.push( { productId, quantity });
+          }
+        });
+
+        orders.push(
+          { 
+            orderId, 
+            orderDate, 
+            orderStatus, 
+            orderTotal, 
+            orderItems
+          }
+        );
+      });
+
+      console.log({orders});
+
+      return res
+      .status(200)
+      .json({ Success: true, data: {orders} });
+    } catch (error) {
+      console.log(error);
+      return res
+      .status(500)
+      .json({ Success: false, data: error, from: ".execute" });
+    }
+
+  } catch (error) {
+    console.log(error);
+    return res
+    .status(500)
+    .json({ Success: false, data: error, from: ".connect" });
+  }  
+}
+
+// fetch url should look like these; for getting the orders:
+// http://localhost:5000/dea/orders?orderId=e232288417
+// http://localhost:5000/dea/orders?email=iishaqyusif@gmail.com
 
 
 // Old mysql2, not promises.

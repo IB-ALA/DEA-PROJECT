@@ -71,6 +71,10 @@ ALTER TABLE orders
 MODIFY order_date DATETIME DEFAULT 
 CURRENT_TIMESTAMP;
 
+ALTER TABLE orders
+MODIFY order_status VARCHAR(30) 
+DEFAULT 'Pending';
+
 DESCRIBE orders;
 
 CREATE TABLE order_items (
@@ -168,6 +172,53 @@ WHERE order_id = 'f93a3ceac8';
 SELECT * FROM delivery_details
 WHERE order_id = 'f93a3ceac8';
 
-SELECT * FROM orders;
+
+-- GETTING ORDERS
+
+SELECT * FROM orders
+ORDER BY order_date;
 SELECT * FROM order_items;
 SELECT * FROM delivery_details;
+-- iishaqyusif@gmail.com
+
+ALTER TABLE delivery_details
+AUTO_INCREMENT = 0;
+
+
+SELECT 
+orders.order_id AS orderId, 
+orders.order_date AS orderDate, 
+orders.order_status AS orderStatus, 
+orders.total_amount AS orderTotal 
+FROM orders
+WHERE orders.order_id = 'e232288417'
+ORDER BY orders.order_date;
+
+SELECT 
+order_items.order_id, 
+order_items.product_id, 
+order_items.quantity
+FROM order_items 
+WHERE order_items.order_id = 'e232288417';
+
+
+SELECT
+orders.order_id AS orderId, 
+orders.order_date AS orderDate, 
+orders.order_status AS orderStatus, 
+orders.total_amount AS orderTotal 
+FROM orders
+WHERE orders.order_id IN (
+  SELECT orders.order_id 
+  FROM orders
+  WHERE orders.email = 'iishaqyusif@gmail.com' AND orders.order_status <> 'Pending'
+);
+
+SELECT * 
+FROM order_items
+WHERE order_items.order_id IN (
+  SELECT orders.order_id 
+  FROM orders
+  WHERE orders.email = 'iishaqyusif@gmail.com' AND orders.order_status <> 'Pending'
+);
+
