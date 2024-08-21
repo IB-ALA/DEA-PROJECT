@@ -68,6 +68,9 @@ paymentGatewayElem.addEventListener('click', (e) => {
   }
 });
 window.history.forward();
+if (cart.cartItems.length < 1) {
+  window.location.href = "products.html";
+}
 
 
 
@@ -242,6 +245,7 @@ paymentApprovedBtn.addEventListener('click', async () => {
       })
     });
     const data = await response.json();
+    console.log(data);
 
     if (data.Success) {
       const orderId = data.data;

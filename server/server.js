@@ -5,25 +5,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { addNewsletterSubscriber, getAllProducts, createOrder } from './database-queries.js';
-
-
-// mysql2/promise style.
-/*
-(async () => {
-  try {
-    await connection.connect();
-    console.log('Connected to database!');
-
-    const [rows, fields] = await 
-    connection.execute('SELECT * FROM products');
-    console.log(rows);
-
-  } catch (error) {
-    console.log('Error connecting to database:', error);
-  }
-})();
-*/
+import { getAllProducts, addNewsletterSubscriber, createOrder } from './database-queries.js';
 
 
 const app = express();
