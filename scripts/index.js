@@ -1,6 +1,6 @@
 import { changeUiColor, startScrolls, showCart, showScrollBar, showMenu, sendForm, giveShopStausOpacityEffects, trackOrderFunctions } from './user-interface.js';
 import { cart } from './cart.js';
-import { checkShopStatus } from './days.js';
+// import { checkShopStatus } from './days.js';
 
 
 const cartQuantityElem = document.getElementById('cart-icon-quantity');
@@ -21,10 +21,10 @@ showCart();
 showScrollBar(cartBody);
 showScrollBar(trackOrderBody);
 sendForm();
-renderShopStatus();
+// renderShopStatus();
 giveShopStausOpacityEffects();
 
-setInterval(renderShopStatus, 60000);
+// setInterval(renderShopStatus, 60000);
 
 window.addEventListener('scroll', changeUiColor);
 
