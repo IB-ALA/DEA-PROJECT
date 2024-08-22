@@ -1,5 +1,7 @@
 import { contacts, saveContacts } from '../scripts/data/data.js';
 import { cart } from './cart.js';
+import { getProduct } from './data/products.js';
+import formatCurrency from './money.js';
 
 
 export function startScrolls() {
@@ -251,24 +253,76 @@ export function trackOrderFunctions() {
     switchSearchAlternative();
   });
 
+  validateInputs();
 
+  async function searchOrder() {
+    const orderIdSearchInputElem = document.getElementById('orderid-search-option-input');
+    const emailSearchInputElem = document.getElementById('email-search-option-input');
+    const searchOrderErrorText = document.getElementById('search-order-error-text');
+    let urlQuery; 
 
+    if (!orderIdSearchInputElem.classList.contains('remove')) {
+      urlQuery = `orderId=${orderIdSearchInputElem.value}`;
 
-  function searchOrder() {
+      if (orderIdSearchInputElem.value.length !== 10) {
+        searchOrderErrorText.innerText = 'enter valid orderId';
+        searchOrderErrorText.classList.remove('remove');
+        return;
+      } else {
+        searchOrderErrorText.classList.add('remove');
+      }
+    } 
+    else {
+      urlQuery = `email=${emailSearchInputElem.value}`;
+      let emailgood = checkTrackOrderEmail();
+
+      if (!emailgood) {
+        return;
+      }
+    }
+
+    document.querySelector('.js-track-order-load').classList.remove('remove');    
+    // /*
     try {
-      document.querySelector('.js-track-order-load').classList.remove('remove');
-      setTimeout(() => {
-        document.querySelector('.js-track-order-load').classList.add('remove');
-      }, 2000);
+
+      const response = await fetch(`http://localhost:5000/dea/orders?${urlQuery}`);
+      // trial orderId and Email
+      // e232288417
+      // iishaqyusif@gmail.com
+      const data = await response.json();
+
+      if (data.Success) {
+        const order = data.data.orders;
+
+        if (order.length !== 0) {
+          // console.log(order);
+          // const results = await renderOrders(order);
+          // console.log(results);
+          document.getElementById('response-container').innerHTML = await renderOrders(order);
+          document.querySelector('.js-track-order-load').classList.add('remove');
+        } else {
+          throw new Error("Sorry, No Order Found.");
+        }
+      } 
+      else {
+        throw new Error("Couldn't Get Order. Try again.");
+      }
     } catch (error) {
       // some code here
+      document.querySelector('.js-track-order-load').classList.add('remove');
+      console.log(error);
     }
+    // */
+
   }
 
   function switchSearchAlternative() {
     document.getElementById('email-search-option-input').classList.toggle('remove');
     document.getElementById('orderid-search-option-input').classList.toggle('remove');
     document.getElementById('forgot-orderid-text').classList.toggle('remove');
+    document.getElementById('search-order-error-text').classList.add('remove');
+    document.getElementById('email-search-option-input').value = '';
+    document.getElementById('orderid-search-option-input').value = '';
 
     const switchSearchAlternativeElem = document.querySelector('.js-alternate-search-option');
     if (switchSearchAlternativeElem.innerText === 'Use Email') {
@@ -276,6 +330,43 @@ export function trackOrderFunctions() {
     } else {
       switchSearchAlternativeElem.innerText = 'Use Email';
     }
+  }
+
+  function checkTrackOrderEmail() {
+    const emailSearchInputElem = document.getElementById('email-search-option-input');
+    const searchOrderErrorText = document.getElementById('search-order-error-text');
+    const emailRegex = /^([a-z\d\.-]+)@([a-z\d-]+\.)([a-z]{2,3})?$/;
+    if (!emailSearchInputElem.value.match(emailRegex)) {
+      searchOrderErrorText.innerText = 'enter valid email';
+      searchOrderErrorText.classList.remove('remove');
+      return false;
+    } else {
+      searchOrderErrorText.classList.add('remove');
+      return true;
+    }
+  }
+
+  function validateInputs() {
+    const orderIdSearchInputElem = document.getElementById('orderid-search-option-input');
+    const emailSearchInputElem = document.getElementById('email-search-option-input');
+    const searchOrderErrorText = document.getElementById('search-order-error-text');
+  
+    orderIdSearchInputElem.addEventListener('keyup', () => {
+      if (orderIdSearchInputElem.value.length !== 10) {
+        searchOrderErrorText.innerText = 'enter valid orderId';
+        searchOrderErrorText.classList.remove('remove');
+        return;
+      } else {
+        searchOrderErrorText.classList.add('remove');
+      }
+    });
+  
+    emailSearchInputElem.addEventListener('keyup', () => {
+      let emailgood = checkTrackOrderEmail();
+      if (!emailgood) {
+        return;
+      }
+    });
   }
 }
 
@@ -442,3 +533,62 @@ export function giveShopStausOpacityEffects() {
     }, 1500);
   });
 }
+
+
+async function renderOrders(orders) {
+  let ordersHTML = '';
+
+  for (const order of orders) {
+  // await orders.forEach(async () => {
+
+    const {orderId, orderDate, orderStatus, orderTotal, orderItems} = order;
+    let orderItemsHTML = '';
+
+    for (const orderItem of orderItems) {
+      const { productId, quantity } = orderItem;
+      const product = await getProduct(productId);
+      console.log({product});
+      const {name, pricePesewas} = product;
+      orderItemsHTML+= `
+        <div class="order-item">
+          <div class="order-item-img">
+            <img src="${product.getImage()}" alt="Vanity mirror-Silver">
+          </div>
+
+          <div class="order-item-details">
+            <div class="left-side">
+              <p>${name}</p>
+              <p>₵${formatCurrency(pricePesewas)}</p>
+            </div>
+            <div class="right-side">
+              <p>X${quantity}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    ordersHTML += `
+      <div class="each-order-container">
+        <div class="order-info-section">
+          <div class="">
+            <p>id: <span>${orderId}</span></p>
+            <p>date: <span>${orderDate.slice(0, 10)}</span></p>
+          </div>
+          <div class="">
+            <p>total: <span>₵${formatCurrency(orderTotal)}</span></p>
+            <p>status: <span>${orderStatus}</span></p>
+          </div>
+        </div>
+
+        <div class="order-details">${orderItemsHTML}</div>
+      </div>
+    `;
+  }
+
+  return ordersHTML;
+}
+
+
+// const date = '2024-08-21T13:26:35.000Z'
+// console.log(date.slice(0, 10));

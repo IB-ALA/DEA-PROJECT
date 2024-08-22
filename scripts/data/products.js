@@ -207,7 +207,7 @@ export async function fetctAllProducts() {
         console.log({dbProducts});
         return dbProducts;
         // dbProducts = dbProducts.map(product => new NewProduct(product));
-        console.log(dbProducts);
+        // console.log(dbProducts);
         // return newProducts;
       } else {
         // throw new Error("Couldn't Get Products. Try again later");
