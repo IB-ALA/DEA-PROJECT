@@ -201,6 +201,7 @@ export function showCart() {
 
   trackOrderBtn.addEventListener('click', () => {
     document.querySelector('.js-cart-track-order-grid').classList.add('track-order-side');
+    resetTrackOrderEffects();
   });
 
   cartCheckoutBtn.addEventListener('click', () => {
@@ -247,6 +248,13 @@ export function trackOrderFunctions() {
   searchOrderBtn.addEventListener('click', () => {
     searchOrder();
   });
+  document.querySelectorAll('.js-track-order-input').forEach((inputElem) => {
+    inputElem.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        searchOrder(); 
+      }
+    });
+  }); 
 
 
   document.querySelector('.js-alternate-search-option').addEventListener('click', () => {
@@ -259,6 +267,7 @@ export function trackOrderFunctions() {
     const orderIdSearchInputElem = document.getElementById('orderid-search-option-input');
     const emailSearchInputElem = document.getElementById('email-search-option-input');
     const searchOrderErrorText = document.getElementById('search-order-error-text');
+    const trackOrderErrorResponseElem = document.getElementById('track-order-error-response');
     let urlQuery; 
 
     if (!orderIdSearchInputElem.classList.contains('remove')) {
@@ -301,14 +310,20 @@ export function trackOrderFunctions() {
           document.getElementById('response-container').innerHTML = await renderOrders(order);
           document.querySelector('.js-track-order-load').classList.add('remove');
         } else {
-          throw new Error("Sorry, No Order Found.");
+          throw new Error("No Order Found");
         }
       } 
       else {
-        throw new Error("Couldn't Get Order. Try again.");
+        throw new Error("Couldn't Get Order");
       }
     } catch (error) {
       // some code here
+      trackOrderErrorResponseElem.classList.remove('remove');
+      if (error.message === 'No Order Found') {
+        trackOrderErrorResponseElem.innerHTML = 'No order found, reach our team on <a href="tel:+2335771000**" style="text-decoration: underline;">05771000**</a> if there is a problem.';
+      } else {
+        trackOrderErrorResponseElem.innerHTML = 'An error occured. If problem persists, reach our team on <a href="tel:+2335771000**">05771000**</a>';
+      }
       document.querySelector('.js-track-order-load').classList.add('remove');
       console.log(error);
     }
@@ -320,9 +335,7 @@ export function trackOrderFunctions() {
     document.getElementById('email-search-option-input').classList.toggle('remove');
     document.getElementById('orderid-search-option-input').classList.toggle('remove');
     document.getElementById('forgot-orderid-text').classList.toggle('remove');
-    document.getElementById('search-order-error-text').classList.add('remove');
-    document.getElementById('email-search-option-input').value = '';
-    document.getElementById('orderid-search-option-input').value = '';
+    resetTrackOrderEffects();
 
     const switchSearchAlternativeElem = document.querySelector('.js-alternate-search-option');
     if (switchSearchAlternativeElem.innerText === 'Use Email') {
@@ -336,7 +349,7 @@ export function trackOrderFunctions() {
     const emailSearchInputElem = document.getElementById('email-search-option-input');
     const searchOrderErrorText = document.getElementById('search-order-error-text');
     const emailRegex = /^([a-z\d\.-]+)@([a-z\d-]+\.)([a-z]{2,3})?$/;
-    if (!emailSearchInputElem.value.match(emailRegex)) {
+    if (emailSearchInputElem.value !== '' && !emailSearchInputElem.value.match(emailRegex)) {
       searchOrderErrorText.innerText = 'enter valid email';
       searchOrderErrorText.classList.remove('remove');
       return false;
@@ -352,7 +365,7 @@ export function trackOrderFunctions() {
     const searchOrderErrorText = document.getElementById('search-order-error-text');
   
     orderIdSearchInputElem.addEventListener('keyup', () => {
-      if (orderIdSearchInputElem.value.length !== 10) {
+      if (orderIdSearchInputElem.value !== '' && orderIdSearchInputElem.value.length !== 10) {
         searchOrderErrorText.innerText = 'enter valid orderId';
         searchOrderErrorText.classList.remove('remove');
         return;
@@ -370,6 +383,12 @@ export function trackOrderFunctions() {
   }
 }
 
+function resetTrackOrderEffects() {
+  document.getElementById('search-order-error-text').classList.add('remove');
+  document.getElementById('email-search-option-input').value = '';
+  document.getElementById('orderid-search-option-input').value = '';
+  document.getElementById('track-order-error-response').classList.add('remove');
+}
 
 export function showMenu() {
   const menuIcon = document.querySelector('.js-menu-icon');

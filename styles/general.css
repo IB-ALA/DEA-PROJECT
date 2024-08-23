@@ -698,6 +698,18 @@ footer .bottom p span {
   color: hsl(199, 99%, 28%);
 }
 
+.track-order-error-response {
+  padding: 0 8%; 
+  text-align: center; 
+  font-size: 15px; 
+  text-transform: capitalize; 
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 50px;
+}
+.track-order-error-response a {
+  text-decoration: underline;
+}
+
 .each-order-container {
   /* border: 2px solid red; */
   display: flex;
