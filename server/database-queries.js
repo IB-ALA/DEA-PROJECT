@@ -128,7 +128,7 @@ export async function createOrder(req, res) {
           SELECT delivery_id FROM delivery_details
           WHERE delivery_details.order_id = ?
         ), orders.order_status = ?
-        WHERE orders.order_id = 
+        WHERE orders.order_id = ?
       `;
       await connection.execute(query3, [orderId, 'Placed', orderId]);
 
