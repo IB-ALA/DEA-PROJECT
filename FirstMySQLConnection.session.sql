@@ -236,4 +236,5 @@ ADD payment_method VARCHAR(20);
 SELECT * FROM orders;
 SELECT * FROM order_items;
 SELECT * FROM delivery_details;
-SELECT * FROM products;
+SELECT * FROM products
+ORDER BY product_id DESC;

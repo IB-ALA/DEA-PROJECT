@@ -265,10 +265,10 @@ export async function getOrder(req, res) {
         orders.order_id AS orderId, 
         orders.order_date AS orderDate, 
         orders.order_status AS orderStatus, 
-        orders.total_amount AS orderTotal 
+        orders.total_cost AS orderTotal 
         FROM orders
         WHERE orders.order_id = ?
-        ORDER BY orders.order_date;
+        ORDER BY orders.order_date DESC
       `;
 
       getOrderProductsQuery = `
@@ -289,14 +289,14 @@ export async function getOrder(req, res) {
         orders.order_id AS orderId, 
         orders.order_date AS orderDate, 
         orders.order_status AS orderStatus, 
-        orders.total_amount AS orderTotal 
+        orders.total_cost AS orderTotal
         FROM orders
         WHERE orders.order_id IN (
           SELECT orders.order_id 
           FROM orders
           WHERE orders.email = ? AND orders.order_status <> 'Pending'
         )
-        ORDER BY orders.order_date
+        ORDER BY orders.order_date DESC
       `;
 
       getOrderProductsQuery = `

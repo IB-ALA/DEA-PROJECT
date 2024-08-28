@@ -1,4 +1,3 @@
-import { contacts, saveContacts } from '../scripts/data/data.js';
 import { cart } from './cart.js';
 import { getProduct } from './data/products.js';
 import formatCurrency from './money.js';
@@ -267,7 +266,6 @@ export function trackOrderFunctions() {
     const orderIdSearchInputElem = document.getElementById('orderid-search-option-input');
     const emailSearchInputElem = document.getElementById('email-search-option-input');
     const searchOrderErrorText = document.getElementById('search-order-error-text');
-    const trackOrderErrorResponseElem = document.getElementById('track-order-error-response');
     let urlQuery; 
 
     if (!orderIdSearchInputElem.classList.contains('remove')) {
@@ -318,12 +316,13 @@ export function trackOrderFunctions() {
       }
     } catch (error) {
       // some code here
-      trackOrderErrorResponseElem.classList.remove('remove');
+      let errorMessage = '';
       if (error.message === 'No Order Found') {
-        trackOrderErrorResponseElem.innerHTML = 'No order found, reach our team on <a href="tel:+2335771000**" style="text-decoration: underline;">05771000**</a> if there is a problem.';
+        errorMessage = 'No order found, reach our team on <a href="tel:+2335771000**" style="text-decoration: underline;">05771000**</a> if there is a problem.';
       } else {
-        trackOrderErrorResponseElem.innerHTML = 'An error occured. If problem persists, reach our team on <a href="tel:+2335771000**">05771000**</a>';
+        errorMessage = 'An error occured. If problem persists, reach our team on <a href="tel:+2335771000**">05771000**</a>';
       }
+      document.getElementById('response-container').innerHTML = renderErrorSearchOrderHTML(errorMessage);
       document.querySelector('.js-track-order-load').classList.add('remove');
       console.log(error);
     }
@@ -387,7 +386,7 @@ function resetTrackOrderEffects() {
   document.getElementById('search-order-error-text').classList.add('remove');
   document.getElementById('email-search-option-input').value = '';
   document.getElementById('orderid-search-option-input').value = '';
-  document.getElementById('track-order-error-response').classList.add('remove');
+  document.getElementById('response-container').innerHTML = '';
 }
 
 export function showMenu() {
@@ -566,7 +565,7 @@ async function renderOrders(orders) {
     for (const orderItem of orderItems) {
       const { productId, quantity } = orderItem;
       const product = await getProduct(productId);
-      console.log({product});
+      // console.log({product});
       const {name, pricePesewas} = product;
       orderItemsHTML+= `
         <div class="order-item">
@@ -608,6 +607,13 @@ async function renderOrders(orders) {
   return ordersHTML;
 }
 
+function renderErrorSearchOrderHTML(errorMessage) {
+  return `
+    <p class="track-order-error-response" id="track-order-error-response">
+      ${errorMessage}
+    </p>
+  `;
+}
 
 // const date = '2024-08-21T13:26:35.000Z'
 // console.log(date.slice(0, 10));

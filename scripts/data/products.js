@@ -192,7 +192,7 @@ export async function fetctAllProducts() {
   let dbProducts;
   const cachedProducts = JSON.parse(sessionStorage.getItem('products'));
   if (cachedProducts) {
-    console.log({cachedProducts});
+    // console.log({cachedProducts});
     return cachedProducts;
   }
   

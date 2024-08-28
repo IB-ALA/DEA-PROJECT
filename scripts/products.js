@@ -30,7 +30,7 @@ cart.updateCartQuantityElem(cartQuantityElem);
 
 // (async () => {
   let products = await fetctAllProducts();
-  console.log({products});
+  // console.log({products});
   if (products.length == 0) {
     productsGrid.innerHTML = `
       <p class="no-products-text">Products unavailable. refresh page agiain later...</p>
