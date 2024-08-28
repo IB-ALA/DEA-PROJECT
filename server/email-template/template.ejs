@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Template</title>
+  <link rel="stylesheet" href="template.css">
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+  <main style="  margin: auto;
+  max-width: 25rem;
+  padding: 10px;
+  background-color: rgb(71, 13, 71);
+  border-radius: 2px;
+  color: hsl(0, 0%, 70%);">
+    <!-- <h2>order confirmation</h2> -->
+    <p 
+    style="
+    margin: 0; 
+    text-transform: capitalize; 
+    padding: 40px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border-radius: 5px;" class="thank-you-text">thank you for your purchase.</p>
+
+    <p 
+    style="
+      padding-left: 5px;
+      margin: 35px 0 20px;
+      color: hsl(0, 0%, 90%);
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: .5px;" class="hi-text"
+      >
+      &nbsp;&nbsp; Hi <%= deliveryDetails.firstName %>, order <%= orderId %> placed successfully at <span style="text-transform: capitalize;"><%= orderDate %></span>;
+    </p>
+    <article style="border: 2px solid rgb(211, 16, 211); border-radius: 2px;" class="order-details">
+      <section 
+      style="display: grid;
+      grid-template-columns: 1fr 5.5rem 5.5rem;
+      padding: 0 10px;
+      padding: 10px;
+      border-bottom: 2px solid rgb(211, 16, 211);
+      margin-bottom: 12px;" class="table-header">
+        <h4 style="text-transform: capitalize; color: hsl(0, 0%, 90%); margin: 0;">product</h4>
+        <h4 style="text-transform: capitalize; color: hsl(0, 0%, 90%); margin: 0; text-align: center;">quantity</h4>
+        <h4 style="text-transform: capitalize; color: hsl(0, 0%, 90%); margin: 0; text-align: end;">price</h4>
+      </section>
+
+      <section style="margin-bottom: 12px;" class="items-section">
+
+        <% orderDetails.forEach((orderItem) => { %>
+          <div class="items-div"
+          style="
+          display: grid;
+          grid-template-columns: 1fr 5.5rem 5.5rem;
+          padding: 0 10px;
+          margin-bottom: 6px;">
+            <p style="margin: 0; text-transform: capitalize;"><%= orderItem.productName %></p>
+            <p style="margin: 0; text-transform: capitalize; text-align: center;"><%= orderItem.quantity %></p>
+            <p style="margin: 0; text-transform: capitalize; text-align: end;">₵<%= (orderItem.pricePesewas / 100).toFixed(2) %></p>
+          </div>
+        <% }) %>
+        
+      </section>
+
+      <section style="font-family: 'Courier New', Courier, monospace;" class="computation">
+        <div style="
+          border-top: 2px solid hsl(300, 86%, 20%); 
+          padding: 10px;
+          display: grid;
+          grid-template-columns: 1fr 5.5rem;
+          justify-content: space-between;
+          margin-bottom: 6px;" class="">
+          <p style="margin: 0; text-transform: capitalize;">subtotal:</p>
+          <p style="text-align: end; margin: 0; text-transform: capitalize;">₵<%= (orderTotal / 100).toFixed(2) %></p>
+        </div>
+        <div style="
+        display: grid;
+        grid-template-columns: 1fr 5.5rem;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        padding: 0 10px;" class="">
+          <p style="margin: 0; text-transform: capitalize;">discount(<%= discount * 100 %>%):</p>
+          <p style="text-align: end; margin: 0; text-transform: capitalize;">-₵<%= ((discount * orderTotal) / 100).toFixed(2) %></p>
+        </div>
+        <div style="
+        display: grid;
+        grid-template-columns: 1fr 5.5rem;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        padding: 0 10px;" class="">
+          <p style="margin: 0; text-transform: capitalize;">additional cost:</p>
+          <p style=" text-align: end; margin: 0; text-transform: capitalize;">₵<%= (additionalCost / 100).toFixed(2) %></p>
+        </div>
+        <div 
+        style="
+        border-top: 2px solid hsl(300, 86%, 20%);
+        border-bottom: 2px solid hsl(300, 86%, 20%);
+        padding: 5px 10px 0;
+        padding-bottom: 5px;
+        margin-top: 8px;
+        display: grid;
+        grid-template-columns: 1fr 5.5rem;
+        justify-content: space-between;
+        margin-bottom: 6px;" class="">
+          <h4 style="color: hsl(0, 0%, 90%); text-transform: capitalize; margin: 5px 0;">total:</h4>
+          <h4 style="color: hsl(0, 0%, 90%); text-align: end; margin: 5px 0; letter-spacing: .5px; font-family: 'Courier New', Courier, monospace;">₵<%= (totalCost / 100).toFixed(2) %></h4>
+        </div>
+
+        <div 
+        style="
+        display: grid;
+        grid-template-columns: 1fr 5.5rem;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        padding: 0 10px;
+        font-family: Arial, Helvetica, sans-serif;" class="">
+          <h5 style="color: hsl(0, 0%, 90%); text-transform: capitalize; margin: 5px 0;">payment method:</h5>
+          <h5 style="color: hsl(0, 0%, 90%); text-transform: uppercase; margin: 5px 0; text-align: end;"><%= paymentMethod %></h5>
+        </div>
+      </section>
+
+      <!-- <section>
+        <p style="margin: 0; text-transform: capitalize;">payment methd:</p>
+        <p style="margin: 0; text-transform: capitalize;">momo</p>
+      </section> -->
+    </article>
+
+    <article style="margin: 30px 0 20px;" class="billing-addresss">
+      <h4 style="color: hsl(0, 0%, 90%); text-transform: capitalize; margin: 0;">billing address</h4>
+      <address>
+        <ul 
+        style="
+          list-style: none;
+          margin: 15px 0 0;
+          padding: 12px;
+          border: 2px solid rgb(211, 16, 211);
+          border-radius: 2px;">
+          <li style="text-transform: capitalize; margin-bottom: 5px; font-size: 14px;"><%= deliveryDetails.lastName %> <%= deliveryDetails.firstName %></li>
+          <li style="text-transform: capitalize; margin-bottom: 5px; font-size: 14px;"><%= deliveryDetails.address %></li>
+          <% if(deliveryDetails.zip) { %>
+            <li style="text-transform: capitalize; margin-bottom: 5px; font-size: 14px;"><%= deliveryDetails.zip %></li>
+          <% } %>
+          <li style="text-transform: capitalize; margin-bottom: 5px; font-size: 14px;"><%= deliveryDetails.region %></li>
+          <li style="text-transform: capitalize; margin-bottom: 5px; font-size: 14px;"><%= deliveryDetails.country %></li>
+          <li style="margin-bottom: 2px; font-size: 14px;"><a style="letter-spacing: .5px;" href="tel:+233<%= (deliveryDetails.phoneNumber).slice(-9) %>"><%= deliveryDetails.phoneNumber %></a></li>
+          <li><a style="letter-spacing: .5px;" href="mailto:<%= deliveryDetails.email %>"><%= deliveryDetails.email %></a></li>
+        </ul>
+      </address>
+    </article>
+
+    <article style="border-top: 2px dashed rgb(49, 9, 49); padding-top: 10px;" class="footer">
+      <p style="font-size: 14px; margin: 5px 0 0 0; text-transform: none;"> <a style="letter-spacing: .5px;" href="http://deacosmetics.com">deacosmetics.com</a></p>
+      <p style="color: hsl(0, 0%, 90%); font-size: 12px; margin: 5px 0 0 0; text-transform: capitalize; ">&copy; all rights reserved</p>
+    </article>
+  </main>
+  
+</body>
+</html>

@@ -2,7 +2,7 @@ import { showScrollBar, showMenu } from './user-interface.js';
 import { cart } from './cart.js';
 import { getProduct } from './data/products.js';
 import formatCurrency from './money.js';
-
+import { additionalCost, discount, emailDetailsForBackend, removeEmailDetailsForBackend, retrieveEmailDetailsForBackend, saveEmailDetailsForBackend } from './data/data.js';
 showMenu();
 
 const paymentDetailsFormElem = document.getElementById('payment-details-form');
@@ -79,7 +79,7 @@ function checkPaymentDetailsInputs() {
   for (const inputElem of paymentFormInputs) {
     if (inputElem.value === '') {
       inputElem.classList.add('error');
-      console.log(inputElem)
+      // console.log(inputElem)
     }
   
     if (paymentFormInputs[3].value !== '') {
@@ -114,7 +114,7 @@ function checkEmail() {
 }
 
 
-momoPaymentForm.addEventListener('submit', (e) => {
+momoPaymentForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const alert1 = document.getElementById('momo-alert-1');
   const alert2 = document.getElementById('momo-alert-2');
@@ -146,25 +146,69 @@ momoPaymentForm.addEventListener('submit', (e) => {
       alert2.classList.add('remove');
 
       try {
-        // make request to momo
-        momoFormContainer.querySelector('.loading').classList.remove('remove');
-        // throw new Error('SERVER ERROR');
+        // make request to momo. 
+        // if (error) {
+          // throw new Error('could not make momo request');
+        // } else {
+          // insert order with no placed status and not paymentid
+        // }
 
-        setTimeout(() => {
+        momoFormContainer.querySelector('.loading').classList.remove('remove');
+
+        const paymentDetailsFormData = new FormData(paymentDetailsFormElem);
+        const deliveryDetails = Object.fromEntries(paymentDetailsFormData.entries());
+        const orderDetails = cart.cartItems;
+        const orderQuantity = cart.findCartTotal();
+        const orderTotal = await cart.calculateCartTotalAmount();
+        const totalCost = (orderTotal - (discount * orderTotal)) + additionalCost;
+        const paymentMethod =  momo.checked ? 'momo' : visa.checked ? 'visa' : mastercard.checked ? 'mastercard' : paypal.checked ? 'paypal' : 'stripe';;
+    
+        // /*
+        const response = await fetch('http://localhost:5000/dea/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            deliveryDetails,
+            orderDetails,
+            orderQuantity,
+            orderTotal,
+            totalCost
+          })
+        });
+        const data = await response.json();
+        console.log(data);
+    
+        if (data.Success) {
+          const orderId = data.data;
+          emailDetailsForBackend.orderId = orderId;
+          emailDetailsForBackend.deliveryDetails = deliveryDetails;
+          emailDetailsForBackend.orderDetails = orderDetails;
+          emailDetailsForBackend.orderTotal = orderTotal;
+          emailDetailsForBackend.discount = discount;
+          emailDetailsForBackend.additionalCost = additionalCost;
+          emailDetailsForBackend.totalCost = totalCost;
+          emailDetailsForBackend.paymentMethod = paymentMethod;
+
+          console.log((emailDetailsForBackend));
+          saveEmailDetailsForBackend();
           momoFormContainer.classList.add('remove');
           paymentApprovalContainer.classList.remove('remove');
           momoFormContainer.querySelector('.loading').classList.add('remove');
-        }, 2000);
-
-        // momoFormContainer.classList.add('remove');
-        // paymentApprovalContainer.classList.remove('remove');
-        // momoFormContainer.querySelector('.loading').classList.add('remove');
-
+        } 
+        else {
+          throw new Error('SERVER ERROR');
+        }
       } catch (error) {
+        console.log(error);
+        
         momoFormContainer.querySelector('.loading').classList.add('remove');
         momoFormContainer.classList.add('remove');
         paymentFailureElem.classList.remove('remove');
       }
+
     }
 
   // } 
@@ -176,6 +220,7 @@ momoPaymentForm.addEventListener('submit', (e) => {
   //   momoInputElems[1].classList.add('error');
   // }
 
+  // want to to keydown (for 'Enter') for the momo number imputs.
   document.querySelectorAll('.momo-input').forEach(inputElem => {
     inputElem.addEventListener('keydown', () => {
       // if (momoInputElems[0].value !== '' && momoInputElems[1].value !== '') {
@@ -212,35 +257,29 @@ momoPaymentForm.addEventListener('submit', (e) => {
 paymentApprovedBtn.addEventListener('click', async () => {
   paymentApprovalContainer.querySelector('.js-loading').classList.remove('remove');
   // throw new Error('NOT PAID YET');
+  // /*
   try {
     paymentApprovalContainer.querySelector('.js-loading').classList.remove('remove');
 
     // check if payment was successful
     // should be async as we wait for response
-    // if paid, make a post request to the server 
-    // to add order to server and return order id
+    // if paid, make a put request to the server 
+    // to add the paymentDetailsId, update orderStatus and send email confirmation
     // then show the success message.
     // request is down here
-
-    const paymentDetailsFormData = new FormData(paymentDetailsFormElem);
-    const deliveryDetails = Object.fromEntries(paymentDetailsFormData.entries());
-    const orderDetails = cart.cartItems;
-    const orderQuantity = cart.findCartTotal();
-    const paymentDetailsId = 'just-a-trial-id';
-    const orderTotal = await cart.calculateCartTotalAmount();
+    // assume paymentDetailsId
+    const paymentDetailsId = 'test-payment-details-id';
+    const { orderId } = retrieveEmailDetailsForBackend()
 
     // /*
-    const response = await fetch('http://localhost:5000/dea/orders', {
-      method: 'POST',
+    const response = await fetch(`http://localhost:5000/dea/orders?orderId=${orderId}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        deliveryDetails,
-        orderDetails,
-        orderQuantity,
-        orderTotal, 
+        orderPlaced: retrieveEmailDetailsForBackend(),
         paymentDetailsId
       })
     });
@@ -248,10 +287,9 @@ paymentApprovedBtn.addEventListener('click', async () => {
     console.log(data);
 
     if (data.Success) {
-      const orderId = data.data;
-
-      console.log(deliveryDetails, orderDetails);
-  
+      const {orderId, html} = data.data;
+      console.log(html);
+        
       paymentApprovalContainer.querySelector('.js-loading').classList.add('remove');
       paymentApprovalContainer.classList.add('remove');
       paymentSuccessfulElem.classList.remove('remove');
@@ -260,6 +298,7 @@ paymentApprovedBtn.addEventListener('click', async () => {
       // reset cart
       cart.cartItems = [];
       cart.saveCart();
+      removeEmailDetailsForBackend();
     } 
     else {
       throw new Error('SERVER ERROR');
@@ -269,6 +308,8 @@ paymentApprovedBtn.addEventListener('click', async () => {
     paymentApprovalContainer.classList.add('remove');
     paymentFailureElem.classList.remove('remove');
   }
+  // */
+
 });
 
 retryPaymentBtn.addEventListener('click', () => {
@@ -283,8 +324,6 @@ renderOrderSummary();
 async function renderOrderSummary() {
   allowPayment = true;
   const orderSummaryContainer = document.querySelector('.js-order-summary-container');
-  const discount = 0;
-  const additionalCost = 0;
   // ${formatCurrency(await cart.calculateCartTotalAmount())}
   // this worked too
 
@@ -358,7 +397,7 @@ async function renderOrderSummary() {
         </div>
 
         <div class="discount-amount-container">
-          <p>discount <span>${discount}%</span>:</p>
+          <p>discount <span>${discount * 100}%</span>:</p>
           <p>-₵${formatCurrency(cartTotalAmount * discount)}</p>
         </div>
 
@@ -372,7 +411,7 @@ async function renderOrderSummary() {
 
       <div class="order-total">
         <h3>total:</h3>
-        <p>₵${formatCurrency(cartTotalAmount + (cartTotalAmount * discount) + additionalCost)}</p>
+        <p>₵${formatCurrency((cartTotalAmount - (cartTotalAmount * discount)) + additionalCost)}</p>
       </div>
     `;
 
@@ -393,3 +432,5 @@ async function renderOrderSummary() {
   // const orderDetailsContainer = document.querySelector('.js-order-details-container');
   // showScrollBar(orderDetailsContainer);
 }
+
+// fix SS and CS getOrder function.

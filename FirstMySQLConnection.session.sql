@@ -222,3 +222,18 @@ WHERE order_items.order_id IN (
   WHERE orders.email = 'iishaqyusif@gmail.com' AND orders.order_status <> 'Pending'
 );
 
+USE dea_cosmetics_store;
+SHOW tables;
+
+DESCRIBE orders;
+ALTER TABLE orders 
+ADD total_cost INT;
+
+DESCRIBE orders;
+ALTER TABLE orders 
+ADD payment_method VARCHAR(20);
+
+SELECT * FROM orders;
+SELECT * FROM order_items;
+SELECT * FROM delivery_details;
+SELECT * FROM products;
