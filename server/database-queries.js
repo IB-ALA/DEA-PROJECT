@@ -4,14 +4,17 @@ import { createOrderId } from './server-utils.mjs';
 // import mysql from 'mysql2';
 import mysql from 'mysql2/promise';
 import ejs from 'ejs';
+import { sendEmail } from './nodemailor.mjs';
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 
 function createDbConnection() {
   return mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Xenon5555',
-    database: 'dea_cosmetics_store'
+    host: process.env.DATABASE_ROOT,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME
   });
 }
 
@@ -210,7 +213,7 @@ export async function updateOrder(req, res) {
       orderPlaced.orderDate = finalDate;
       
       // send email confirmation
-      const templateFile = './server/email-template/template.ejs';
+      const templateFile = './server/email-template/order-confirmation.ejs';
 
       ejs.renderFile(templateFile, orderPlaced, (err, html) => {
         if (err) {
@@ -220,13 +223,21 @@ export async function updateOrder(req, res) {
           .status(500)
           .json({ Success: false, data: { orderId, err }, from: ".execute"});
         }
+
+        const emailDetails = {
+          senderEmailAddress: process.env.SENDERS_EMAIL_ADDRESS, 
+          senderEmailPassword: process.env.SENDERS_EMAIL_APP_REQUIRED_PASSWORD, 
+          recipientEmailAddress: orderPlaced.deliveryDetails.email, 
+          emailSubject: 'Order Confirmation', 
+          html: html
+        }
+
+        sendEmail(emailDetails);
     
         console.log('All data inserted successfully. Order-id: ', orderId);
         return res
         .status(200)
         .json({ Success: true, data: { orderId, html}});
-        
-        // return html;
       });
       
     } catch (error) {

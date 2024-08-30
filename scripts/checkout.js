@@ -433,4 +433,4 @@ async function renderOrderSummary() {
   // showScrollBar(orderDetailsContainer);
 }
 
-// fix SS and CS getOrder function.
+// the email styles
